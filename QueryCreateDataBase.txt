@@ -1,0 +1,90 @@
+USE Library
+
+create table Author
+(
+	ID int not null primary key identity(1,1),
+	Name VARCHAR(MAX),
+)
+
+create table Domain
+(
+	ID int not null primary key identity(1,1),
+	Name VARCHAR(MAX),
+	ParentID int foreign key references Domain(ID),
+)
+
+create table Book
+(
+	ID int not null primary key identity(1,1),
+	Name VARCHAR(MAX),
+	DomainID int not null foreign key references Domain(ID),
+)
+
+
+
+create table Edition
+(
+	ID int not null primary key identity(1,1),
+	BookID int not null foreign key references Book(ID),
+	PublishingHouseName VARCHAR(MAX),
+	PageNr int,
+	BookType VARCHAR(MAX),
+	PublicationYear int,
+	InitialStock int,
+	BorrowedBooks int,
+	ReadingRoomBooks int,
+)
+
+create table Edition_Author
+(
+	EditionID int not null foreign key references Edition(ID),
+	AuthorID int not null foreign key references Author(ID),
+)
+
+create table [User]
+(
+	ID int not null primary key identity(1,1),
+	FirstName VARCHAR(MAX),
+	LastName VARCHAR(MAX),
+	[Address] VARCHAR(MAX),
+	Phone VARCHAR(MAX),
+	Email VARCHAR(MAX),
+	IsReader int,
+	IsLibrarian int,
+)
+
+create table Borrow
+(
+	ID int not null primary key identity(1,1),
+	EditionID int not null foreign key references Edition(ID),
+	UserId int not null foreign key references [User](ID),
+	StartDate date,
+	EndDate date,
+)
+
+
+ALTER TABLE [User]
+ADD CONSTRAINT ReaderConstraint
+CHECK (IsReader=0 or IsReader=1)
+
+ALTER TABLE [User]
+ADD CONSTRAINT LibrarianConstraint
+CHECK (IsLibrarian=0 or IsLibrarian=1)
+
+
+CREATE PROCEDURE AddReader
+	@FirstName VARCHAR(max),
+	@LastName VARCHAR(max),
+	@Address VARCHAR(max),
+	@Phone VARCHAR(max),
+	@Email VARCHAR(max)
+
+AS
+BEGIN
+
+	INSERT INTO [User] (FirstName,LastName,Address,Phone,Email,IsReader,IsLibrarian) values (@FirstName,@LastName,@Address,@Phone,@Email,1,0)
+
+END
+
+
+
