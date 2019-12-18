@@ -14,6 +14,10 @@ namespace Library2Framework.DomainLayer
 
         public int EditionId { get; set; }
 
+        DateTime startDate { get; set; }
+
+        DateTime endDate { get; set; }
+
         public Borrow(int ID, int UserId, int EditionId)
         {
             this.ID = ID;

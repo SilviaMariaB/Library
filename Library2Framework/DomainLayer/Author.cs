@@ -17,7 +17,7 @@ namespace Library2Framework.DomainLayer
 
         }
        
-        public Author(int ID, String AuthorName)
+        public Author(String AuthorName, int ID=0)
         {
             this.ID = ID;
             this.AuthorName = AuthorName;
@@ -26,7 +26,7 @@ namespace Library2Framework.DomainLayer
 
         public override string ToString()
         {
-            return "( ID: " + this.ID + " author name: " + this.AuthorName + ")";
+            return "\n Author name: " + this.AuthorName ;
         }
     }
 }

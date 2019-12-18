@@ -12,19 +12,23 @@ namespace Library2Framework.DomainLayer
 
         public String DomainName { get; set; }
 
-        public Domain ParentId { get; set; }
+        public String ParentName { get; set; }
 
-        public Domain(int ID, String DomainName, Domain ParentId)
+        public Domain(String DomainName, String ParentName, int ID =0)
         {
             this.ID = ID;
             this.DomainName = DomainName;
-            this.ParentId = ParentId;
+            this.ParentName = ParentName;
             
         }
+        public Domain()
+        {
 
+        }
         public override string ToString()
         {
-            return "( ID: " + this.ID + " domain name: " + this.DomainName + " parent id: " + this.ParentId + ")";
+            return "\n Domain name: " + this.DomainName + 
+                "\n Parent name: " + this.ParentName ;
         }
     }
 }

@@ -24,7 +24,13 @@ namespace Library2Framework.DomainLayer
 
         public Boolean Librarian { get; set; }
 
-        public User(int ID, String FirstName, String LastName, String Address, String PhoneNumber, String Email, Boolean Reader, Boolean Librarian)
+        public User(String FirstName, String LastName)
+        {
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+        }
+
+        public User(String FirstName, String LastName, String Address, String PhoneNumber, String Email, Boolean Reader, Boolean Librarian, int ID = 0)
         {
             this.ID = ID;
             this.FirstName = FirstName;
@@ -42,7 +48,13 @@ namespace Library2Framework.DomainLayer
 
         public override string ToString()
         {
-            return "( ID: " + this.ID + ", first name: " + this.FirstName + ", last name: " + this.LastName + ", address: " + this.Address + ", phone number: " + this.PhoneNumber + ", email: " + this.Email + ", reader: " + this.Reader + ", librarian: " + this.Librarian + ")";
+            return  "\n First name: " + this.FirstName + 
+                "\n Last name: " + this.LastName +
+                "\n Address: " + this.Address + 
+                "\n Phone number: " + this.PhoneNumber + 
+                "\n Email: " + this.Email + 
+                "\n Reader: " + this.Reader + 
+                "\n Librarian: " + this.Librarian ;
         }
 
     }

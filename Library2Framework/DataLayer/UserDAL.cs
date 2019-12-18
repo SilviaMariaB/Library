@@ -12,7 +12,6 @@ namespace Library2Framework.DataLayer
 {
     public class UserDAL
     {
-
         public static List<User> GetLibrarians()
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -88,5 +87,102 @@ namespace Library2Framework.DataLayer
                 return result;
             }
         }
+
+        public static void AddLibrarian(User librarian)
+        {
+            using (SqlConnection con = DBConnection.Connection)
+            {
+
+                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
+                //si o setam ca fiind de tip stored procedure
+                SqlCommand cmd = new SqlCommand("AddLibrarian", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                SqlParameter firstName = new SqlParameter("@FirstName", librarian.FirstName);
+                SqlParameter lastName = new SqlParameter("@LastName", librarian.LastName);
+                SqlParameter address = new SqlParameter("@Address", librarian.Address);
+                SqlParameter phone = new SqlParameter("@Phone", librarian.PhoneNumber);
+                SqlParameter email = new SqlParameter("@Email", librarian.Email);
+
+                cmd.Parameters.Add(firstName);
+                cmd.Parameters.Add(lastName);
+                cmd.Parameters.Add(address);
+                cmd.Parameters.Add(phone);
+                cmd.Parameters.Add(email);
+
+                //deschidem conexiunea la BD        
+                con.Open();
+                //creem o colectie in care sa memoram rezultatele procedurii stocate
+
+                cmd.ExecuteNonQuery();
+
+            }
+        }
+
+        public static void AddReader(User reader)
+        {
+            using (SqlConnection con = DBConnection.Connection)
+            {
+
+                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
+                //si o setam ca fiind de tip stored procedure
+                SqlCommand cmd = new SqlCommand("AddReader", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                SqlParameter firstName = new SqlParameter("@FirstName", reader.FirstName);
+                SqlParameter lastName = new SqlParameter("@LastName", reader.LastName);
+                SqlParameter address = new SqlParameter("@Address", reader.Address);
+                SqlParameter phone = new SqlParameter("@Phone", reader.PhoneNumber);
+                SqlParameter email = new SqlParameter("@Email", reader.Email);
+
+                cmd.Parameters.Add(firstName);
+                cmd.Parameters.Add(lastName);
+                cmd.Parameters.Add(address);
+                cmd.Parameters.Add(phone);
+                cmd.Parameters.Add(email);
+
+                //deschidem conexiunea la BD        
+                con.Open();
+                //creem o colectie in care sa memoram rezultatele procedurii stocate
+
+                cmd.ExecuteNonQuery();
+
+            }
+        }
+
+        public static Boolean CheckUser(User user)
+        {
+            using (SqlConnection con = DBConnection.Connection)
+            {
+                SqlCommand cmd = new SqlCommand("GetIdForUser", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+
+                SqlParameter firstName = new SqlParameter("@FirstName", user.FirstName);
+                SqlParameter lastName = new SqlParameter("@LastName", user.LastName);
+                
+                cmd.Parameters.Add(firstName);
+                cmd.Parameters.Add(lastName);
+                
+                con.Open();
+                int counter = 0;
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    counter++;
+
+                }
+                reader.Close();
+                return counter == 0 ? false : true;
+            }
+        }
+
+
     }
 }

@@ -18,6 +18,8 @@ namespace Library2Framework.DomainLayer
 
         public String Domain { get; set; }
 
+        public String BookType { get; set; }
+
         public int InitialStock { get; set; }
 
         public int BorrowedBooks { get; set; }
@@ -29,13 +31,15 @@ namespace Library2Framework.DomainLayer
 
         }
 
-        public Edition(String Name, String PublishingHouseName, int PageNr, int PublicationYear, String Domain, int InitialStock, int BorrowedBooks, int ReadingRoomBooks)
+        public Edition(String Name, String Domain, String PublishingHouseName, int PageNr, string BookType,
+            int PublicationYear, int InitialStock, int BorrowedBooks=0, int ReadingRoomBooks=0)
         {
             this.Name = Name;
             this.PublishingHouseName = PublishingHouseName;
             this.PageNr = PageNr;
             this.PublicationYear = PublicationYear;
             this.Domain = Domain;
+            this.BookType = BookType;
             this.InitialStock = InitialStock;
             this.BorrowedBooks = BorrowedBooks;
             this.ReadingRoomBooks = ReadingRoomBooks;
@@ -48,6 +52,7 @@ namespace Library2Framework.DomainLayer
                 "\n Number of pages: " + this.PageNr +
                 "\n Publication year: " + this.PublicationYear +
                 "\n Domain: " + Domain +
+                "\n Book type: " + BookType +
                 "\n Initial stock: " + this.InitialStock +
                 "\n Borrowed books: " + this.BorrowedBooks +
                 "\n Readingroom books: " + this.ReadingRoomBooks ;
