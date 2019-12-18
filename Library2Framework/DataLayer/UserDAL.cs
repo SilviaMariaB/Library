@@ -15,7 +15,7 @@ namespace Library2Framework.DataLayer
 
         public static List<User> GetLibrarians()
         {
-            using (SqlConnection con = GetDBConnection.Connection)
+            using (SqlConnection con = DBConnection.Connection)
             {
 
                 //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
@@ -53,7 +53,7 @@ namespace Library2Framework.DataLayer
 
         public static List<User> GetReaders()
         {
-            using (SqlConnection con = GetDBConnection.Connection)
+            using (SqlConnection con = DBConnection.Connection)
             {
 
                 //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD

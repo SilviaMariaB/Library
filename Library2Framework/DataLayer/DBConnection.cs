@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace Library2Framework.Utils
 {
-    public static class GetDBConnection
+    public static class DBConnection
     {
         private static readonly string connectionString = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 

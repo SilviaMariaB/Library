@@ -14,7 +14,7 @@ namespace Library2Framework.DataLayer
     {
         public static List<Edition> GetBooksAlphabetical()
         {
-            using (SqlConnection con = GetDBConnection.Connection)
+            using (SqlConnection con = DBConnection.Connection)
             {
 
                 //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
@@ -54,7 +54,7 @@ namespace Library2Framework.DataLayer
 
         public static List<Edition> GetBorrowedBooksAlphabetical()
         {
-            using (SqlConnection con = GetDBConnection.Connection)
+            using (SqlConnection con = DBConnection.Connection)
             {
 
                 //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD

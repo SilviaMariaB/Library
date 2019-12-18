@@ -14,7 +14,7 @@ namespace Library2Framework.DataLayer
     {
         public static List<Author> GetAuthorsForBook(String BookName, int PublicationYear, String PublishingHouseName)
         {
-            using (SqlConnection con = GetDBConnection.Connection)
+            using (SqlConnection con = DBConnection.Connection)
             {
 
                 //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD

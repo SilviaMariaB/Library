@@ -43,14 +43,14 @@ namespace Library2Framework.DomainLayer
 
         public override string ToString()
         {
-            return "( Name: " + Name +
-                ", publishing house name: " + this.PublishingHouseName +
-                " page number: " + this.PageNr +
-                " publication year: " + this.PublicationYear +
-                ", domain:" + Domain +
-                " initial stock: " + this.InitialStock +
-                " borrowed books: " + this.BorrowedBooks +
-                " readingroom books: " + this.ReadingRoomBooks + ")";
+            return "\n Name: " + Name +
+                "\n Publishing house name: " + this.PublishingHouseName +
+                "\n Number of pages: " + this.PageNr +
+                "\n Publication year: " + this.PublicationYear +
+                "\n Domain: " + Domain +
+                "\n Initial stock: " + this.InitialStock +
+                "\n Borrowed books: " + this.BorrowedBooks +
+                "\n Readingroom books: " + this.ReadingRoomBooks ;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Library2Framework.DomainLayer
 
         }
        
-
         public Author(int ID, String AuthorName)
         {
             this.ID = ID;

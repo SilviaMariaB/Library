@@ -87,10 +87,14 @@
     <Compile Include="DomainLayer\Edition.cs" />
     <Compile Include="DomainLayer\EditionAuthor.cs" />
     <Compile Include="DomainLayer\User.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="PresentationLayer\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\BookServices.cs" />
+    <Compile Include="ServiceLayer\UserServices.cs" />
     <Compile Include="Utils\GetConfig.cs" />
-    <Compile Include="Utils\GetDBConnection.cs" />
+    <Compile Include="DataLayer\DBConnection.cs" />
+    <Compile Include="Utils\Helper.cs" />
+    <Compile Include="PresentationLayer\WorkFlow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
