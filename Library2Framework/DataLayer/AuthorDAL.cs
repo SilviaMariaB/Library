@@ -1,43 +1,43 @@
-﻿using Library2Framework.DomainLayer;
-using Library2Framework.Utils;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library2Framework.DataLayer
+﻿namespace Library2Framework.DataLayer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Library2Framework.DomainLayer;
+    using Library2Framework.Utils;
+
     public class AuthorDAL
     {
-        public static List<Author> GetAuthorsForBook(String BookName, int PublicationYear, String PublishingHouseName)
+        public static List<Author> GetAuthorsForBook(string bookName, int publicationYear, string publishingHouseName)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
+                // creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
+                // si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("GetAuthorsForBook", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
-                SqlParameter BookNameSql = new SqlParameter("@BookName", BookName);
-                SqlParameter PublicationYearSql = new SqlParameter("@PublicationYear", PublicationYear);
-                SqlParameter PublishingHouseNameSql = new SqlParameter("@PublishingHouseName", PublishingHouseName);
+                SqlParameter bookNameSql = new SqlParameter("@BookName", bookName);
+                SqlParameter publicationYearSql = new SqlParameter("@PublicationYear", publicationYear);
+                SqlParameter publishingHouseNameSql = new SqlParameter("@PublishingHouseName", publishingHouseName);
 
-                cmd.Parameters.Add(BookNameSql);
-                cmd.Parameters.Add(PublicationYearSql);
-                cmd.Parameters.Add(PublishingHouseNameSql);
-                //deschidem conexiunea la BD        
+                cmd.Parameters.Add(bookNameSql);
+                cmd.Parameters.Add(publicationYearSql);
+                cmd.Parameters.Add(publishingHouseNameSql);
+
+                // deschidem conexiunea la BD
                 con.Open();
 
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
+                // creem o colectie in care sa memoram rezultatele procedurii stocate
                 List<Author> result = new List<Author>();
 
-                //apelam efectiv procedura si depunem rezultatul in variabila reader
+                // apelam efectiv procedura si depunem rezultatul in variabila reader
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -45,24 +45,23 @@ namespace Library2Framework.DataLayer
                         new Author()
                         {
                             ID = reader.GetInt32(0),
-                            AuthorName = reader.GetString(1)
-                        }
-                 );
+                            AuthorName = reader.GetString(1),
+                        });
                 }
+
                 reader.Close();
                 return result;
             }
         }
 
-        public static Boolean CheckAuthor(Author author)
+        public static bool CheckAuthor(Author author)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
                 SqlCommand cmd = new SqlCommand("GetIdForAuthor", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-
 
                 SqlParameter authorName = new SqlParameter("@Name", author.AuthorName);
 
@@ -74,13 +73,11 @@ namespace Library2Framework.DataLayer
                 while (reader.Read())
                 {
                     counter++;
-
                 }
+
                 reader.Close();
                 return counter == 0 ? false : true;
             }
         }
-
-
     }
 }

@@ -12,8 +12,8 @@ namespace Library2Framework.ServiceLayer
     {
         public void AddDomain()
         {
-            String domainName = Helper.ReadString("\n Insert domain name: ");
-            String parentName = Helper.ReadString("\n Insert parent name: ");
+            string domainName = Helper.ReadString("\n Insert domain name: ");
+            string parentName = Helper.ReadString("\n Insert parent name: ");
 
 
             Domain domain = new Domain(domainName, parentName);

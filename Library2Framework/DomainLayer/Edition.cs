@@ -8,17 +8,17 @@ namespace Library2Framework.DomainLayer
 {
     public class Edition
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String PublishingHouseName { get; set; }
+        public string PublishingHouseName { get; set; }
 
         public int PageNr { get; set; }
 
         public int PublicationYear { get; set; }
 
-        public String Domain { get; set; }
+        public string Domain { get; set; }
 
-        public String BookType { get; set; }
+        public string BookType { get; set; }
 
         public int InitialStock { get; set; }
 
@@ -31,7 +31,7 @@ namespace Library2Framework.DomainLayer
 
         }
 
-        public Edition(String Name, String Domain, String PublishingHouseName, int PageNr, string BookType,
+        public Edition(string Name, string Domain, string PublishingHouseName, int PageNr, string BookType,
             int PublicationYear, int InitialStock, int BorrowedBooks=0, int ReadingRoomBooks=0)
         {
             this.Name = Name;

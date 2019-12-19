@@ -10,11 +10,11 @@ namespace Library2Framework.DomainLayer
     {
         public int ID { get; set; }
 
-        public String DomainName { get; set; }
+        public string DomainName { get; set; }
 
-        public String ParentName { get; set; }
+        public string ParentName { get; set; }
 
-        public Domain(String DomainName, String ParentName, int ID =0)
+        public Domain(string DomainName, string ParentName, int ID =0)
         {
             this.ID = ID;
             this.DomainName = DomainName;

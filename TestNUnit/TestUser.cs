@@ -12,8 +12,7 @@
         [Test]
         public void TestMethod1()
         {
-            Program dode = new Program();
-            Assert.AreEqual(dode.Silvia("D"), 2);
+            
         }
 
 

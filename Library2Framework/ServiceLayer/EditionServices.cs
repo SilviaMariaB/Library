@@ -13,11 +13,11 @@ namespace Library2Framework.ServiceLayer
     {
         public List<Author> GetAuthorsForEdition()
         {
-            String BookName = Helper.ReadString("Introduce the name of the book:");
+            string BookName = Helper.ReadString("Introduce the name of the book:");
 
             int PublicationYear = Helper.ReadYear("Introduce the year of publishing:");
 
-            String PublishingHouseName = Helper.ReadString("Introduce publishing house name:");
+            string PublishingHouseName = Helper.ReadString("Introduce publishing house name:");
 
             List<Author> authors = AuthorDAL.GetAuthorsForBook(BookName, PublicationYear, PublishingHouseName);
 
@@ -32,15 +32,15 @@ namespace Library2Framework.ServiceLayer
 
         public void AddEdition()
         {
-            String name = Helper.ReadString("\nInsert name: ");
-            String domain = Helper.ReadString("\nInsert domain: ");
+            string name = Helper.ReadString("\nInsert name: ");
+            string domain = Helper.ReadString("\nInsert domain: ");
 
             if (DomainDAL.CheckDomain(domain))
             {
-                String authorName = Helper.ReadString("\nInsert author Name: ");
-                String publishingHouse = Helper.ReadString("\nInsert publishing house: ");
+                string authorName = Helper.ReadString("\nInsert author Name: ");
+                string publishingHouse = Helper.ReadString("\nInsert publishing house: ");
                 int pageNr = Helper.ReadInteger("\nInsert page number:");
-                String bookType = Helper.ReadString("\nInsert book type: ");
+                string bookType = Helper.ReadString("\nInsert book type: ");
                 int publicationYear = Helper.ReadYear("\nInsert publication year: ");
                 int initialStock = Helper.ReadInteger("\nInsert initial stock:");
 
@@ -62,15 +62,15 @@ namespace Library2Framework.ServiceLayer
 
         public void AddAuthorForEdition()
         {
-            String bookName = Helper.ReadString("Introduce the name of the book: ");
+            string bookName = Helper.ReadString("Introduce the name of the book: ");
 
             if (EditionDAL.CheckBook(bookName))
             {
                 int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
 
-                String publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
+                string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
 
-                String authorName = Helper.ReadString("Introduce the name of the author: ");
+                string authorName = Helper.ReadString("Introduce the name of the author: ");
 
                 Author author = new Author(authorName);
                 Edition edition = new Edition()
@@ -94,23 +94,23 @@ namespace Library2Framework.ServiceLayer
 
         public void BorrowBook()
         {
-            String firstName = Helper.ReadString("Introduce first name: ");
-            String lastName = Helper.ReadString("Introduce last name: ");
+            string firstName = Helper.ReadString("Introduce first name: ");
+            string lastName = Helper.ReadString("Introduce last name: ");
             User user = new User(firstName, lastName);
             if (UserDAL.CheckUser(user))
             {
 
-                String bookName = Helper.ReadString("Introduce the name of the book: ");
+                string bookName = Helper.ReadString("Introduce the name of the book: ");
 
                 if (EditionDAL.CheckBook(bookName))
                 {
                     int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
 
-                    String publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
+                    string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
 
                     if (EditionDAL.CheckEdition(bookName, publishingHouseName, publicationYear))
                     {
-                        String authorName = Helper.ReadString("Introduce the name of the author: ");
+                        string authorName = Helper.ReadString("Introduce the name of the author: ");
 
                         Author author = new Author(authorName);
 

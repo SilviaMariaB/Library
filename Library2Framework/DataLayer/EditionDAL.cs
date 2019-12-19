@@ -93,7 +93,7 @@ namespace Library2Framework.DataLayer
             }
         }
 
-        public static Boolean CheckBook(String bookName)
+        public static Boolean CheckBook(string bookName)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -121,7 +121,7 @@ namespace Library2Framework.DataLayer
             }
         }
 
-        public static Boolean CheckEdition(String bookName, string publishingHouse, int publicationYear)
+        public static Boolean CheckEdition(string bookName, string publishingHouse, int publicationYear)
         {
             using (SqlConnection con = DBConnection.Connection)
             {

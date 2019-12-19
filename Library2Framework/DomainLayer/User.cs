@@ -10,27 +10,27 @@ namespace Library2Framework.DomainLayer
     {
         public int ID { get; set; }
 
-        public String FirstName { get; set; }
+        public string FirstName { get; set; }
 
-        public String LastName { get; set; }
+        public string LastName { get; set; }
 
-        public String Address { get; set; }
+        public string Address { get; set; }
 
-        public String PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         public Boolean Reader { get; set; }
 
         public Boolean Librarian { get; set; }
 
-        public User(String FirstName, String LastName)
+        public User(string FirstName, string LastName)
         {
             this.FirstName = FirstName;
             this.LastName = LastName;
         }
 
-        public User(String FirstName, String LastName, String Address, String PhoneNumber, String Email, Boolean Reader, Boolean Librarian, int ID = 0)
+        public User(string FirstName, string LastName, string Address, string PhoneNumber, string Email, Boolean Reader, Boolean Librarian, int ID = 0)
         {
             this.ID = ID;
             this.FirstName = FirstName;

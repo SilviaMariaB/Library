@@ -10,14 +10,14 @@ namespace Library2Framework.DomainLayer
     {
         public int ID { get; set; }
 
-        public String AuthorName { get; set; }
+        public string AuthorName { get; set; }
 
         public Author()
         {
 
         }
        
-        public Author(String AuthorName, int ID=0)
+        public Author(string AuthorName, int ID=0)
         {
             this.ID = ID;
             this.AuthorName = AuthorName;

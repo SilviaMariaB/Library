@@ -1,27 +1,27 @@
-﻿using Library2Framework.DataLayer;
-using Library2Framework.DomainLayer;
-using Library2Framework.ServiceLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library2Framework.Utils
+﻿namespace Library2Framework.Utils
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Library2Framework.DataLayer;
+    using Library2Framework.DomainLayer;
+    using Library2Framework.ServiceLayer;
+
     public class WorkFlow
     {
-        private EditionServices editionServices;
-        private UserServices userServices;
-        private DomainServices domainServices;
+        private EditionServices _editionServices;
+        private UserServices _userServices;
+        private DomainServices _domainServices;
 
-        private const int exit = 13;
+        private const int Exit = 13;
 
         public WorkFlow()
         {
-            editionServices = new EditionServices();
-            userServices = new UserServices();
-            domainServices = new DomainServices();
+            _editionServices = new EditionServices();
+            _userServices = new UserServices();
+            _domainServices = new DomainServices();
         }
 
         public void Run()
@@ -35,32 +35,32 @@ namespace Library2Framework.Utils
                 {
                     case 1:
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        userServices.AddReader();
+                        _userServices.AddReader();
                         ScreenPause();
                         break;
                     case 2: 
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        userServices.AddLibrarian();
+                        _userServices.AddLibrarian();
                         ScreenPause();
                         break;
                     case 3:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
-                        domainServices.AddDomain();
+                        _domainServices.AddDomain();
                         ScreenPause();
                         break;
                     case 4:
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        editionServices.AddEdition();
+                        _editionServices.AddEdition();
                         ScreenPause();
                         break;
                     case 5:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        editionServices.AddAuthorForEdition();
+                        _editionServices.AddAuthorForEdition();
                         ScreenPause();
                         break;
                     case 6:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        editionServices.BorrowBook();
+                        _editionServices.BorrowBook();
                         ScreenPause();
                         break;
                     case 7:
@@ -77,7 +77,7 @@ namespace Library2Framework.Utils
                         break;
                     case 9:
                         Console.ForegroundColor = ConsoleColor.Cyan;
-                        List<Author> authors = editionServices.GetAuthorsForEdition();
+                        List<Author> authors = _editionServices.GetAuthorsForEdition();
                         Display(authors);
                         ScreenPause();
                         break;
@@ -99,10 +99,9 @@ namespace Library2Framework.Utils
                         Display(domains);
                         ScreenPause();
                         break;
-                    case exit:
+                    case Exit:
                         Console.WriteLine("\n Bye-bye! :)");
                         return;
-                        break;
                 }
             }
         }
@@ -141,10 +140,14 @@ namespace Library2Framework.Utils
             while (ok == false)
             {
                 Console.Write("\nInsert option:");
-                String str = Console.ReadLine();
-                ok = Int32.TryParse(str, out choice);
-                if (choice < 0 || choice > exit) ok = false;
+                string str = Console.ReadLine();
+                ok = int.TryParse(str, out choice);
+                if (choice < 0 || choice > Exit)
+                {
+                    ok = false;
+                }
             }
+
             return choice;
         }
 
@@ -155,8 +158,5 @@ namespace Library2Framework.Utils
                 Console.WriteLine("\n" + (list.IndexOf(obj)+1) + ". " + obj);
             }
         }
-
-        
-
     }
 }

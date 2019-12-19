@@ -77,7 +77,7 @@ namespace Library2Framework.DataLayer
             }
         }
 
-        public static Boolean CheckDomain(String domainName)
+        public static Boolean CheckDomain(string domainName)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
