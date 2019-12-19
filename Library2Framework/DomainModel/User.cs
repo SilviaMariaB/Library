@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library2Framework.DomainLayer
+namespace Library2Framework.DomainModel
 {
     public class User
     {
@@ -31,7 +31,7 @@ namespace Library2Framework.DomainLayer
             this.LastName = LastName;
         }
 
-        public User(string FirstName, string LastName, string Address, string PhoneNumber, string Email, Boolean Reader, Boolean Librarian, int ID = 0)
+        public User(string FirstName, string LastName, string Address, string PhoneNumber, string Email, int ID = 0)
         {
             this.ID = ID;
             this.FirstName = FirstName;
@@ -39,8 +39,6 @@ namespace Library2Framework.DomainLayer
             this.Address = Address;
             this.PhoneNumber = PhoneNumber;
             this.Email = Email;
-            this.Reader = Reader;
-            this.Librarian = Librarian;
         }
 
         public User()

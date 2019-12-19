@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Library2Framework.DataLayer;
-using Library2Framework.DomainLayer;
+using Library2Framework.DataMapper;
+using Library2Framework.DomainModel;
 using Library2Framework.Utils;
 using log4net;
 

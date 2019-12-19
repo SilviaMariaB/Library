@@ -1,4 +1,4 @@
-﻿DOM=1
+﻿DOM=2
 NMC=5
 PER=1
 C=2

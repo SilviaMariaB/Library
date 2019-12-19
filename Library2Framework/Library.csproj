@@ -78,22 +78,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLayer\AuthorDAL.cs" />
-    <Compile Include="DataLayer\DomainDAL.cs" />
-    <Compile Include="DataLayer\EditionDAL.cs" />
-    <Compile Include="DataLayer\UserDAL.cs" />
-    <Compile Include="DomainLayer\Author.cs" />
-    <Compile Include="DomainLayer\Borrow.cs" />
-    <Compile Include="DomainLayer\Domain.cs" />
-    <Compile Include="DomainLayer\Edition.cs" />
-    <Compile Include="DomainLayer\EditionAuthor.cs" />
-    <Compile Include="DomainLayer\User.cs" />
+    <Compile Include="DataMapper\AuthorDAL.cs" />
+    <Compile Include="DataMapper\BookDAL.cs" />
+    <Compile Include="DataMapper\DomainDAL.cs" />
+    <Compile Include="DataMapper\EditionDAL.cs" />
+    <Compile Include="DataMapper\UserDAL.cs" />
+    <Compile Include="DomainModel\Author.cs" />
+    <Compile Include="DomainModel\Borrow.cs" />
+    <Compile Include="DomainModel\Domain.cs" />
+    <Compile Include="DomainModel\Edition.cs" />
+    <Compile Include="DomainModel\EditionAuthor.cs" />
+    <Compile Include="DomainModel\User.cs" />
     <Compile Include="PresentationLayer\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\BookServices.cs" />
     <Compile Include="ServiceLayer\EditionServices.cs" />
     <Compile Include="ServiceLayer\DomainServices.cs" />
     <Compile Include="ServiceLayer\UserServices.cs" />
-    <Compile Include="DataLayer\DBConnection.cs" />
+    <Compile Include="DataMapper\DBConnection.cs" />
     <Compile Include="ServiceLayer\Helper.cs" />
     <Compile Include="PresentationLayer\WorkFlow.cs" />
   </ItemGroup>

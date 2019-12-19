@@ -1,5 +1,5 @@
-﻿using Library2Framework.DataLayer;
-using Library2Framework.DomainLayer;
+﻿using Library2Framework.DataMapper;
+using Library2Framework.DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

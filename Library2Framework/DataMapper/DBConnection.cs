@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace Library2Framework.DataLayer
+namespace Library2Framework.DataMapper
 {
     public static class DBConnection
     {

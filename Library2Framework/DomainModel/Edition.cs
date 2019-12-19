@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library2Framework.DomainLayer
+namespace Library2Framework.DomainModel
 {
     public class Edition
     {
@@ -16,8 +16,6 @@ namespace Library2Framework.DomainLayer
         public int PageNr { get; set; }
 
         public int PublicationYear { get; set; }
-
-        public string Domain { get; set; }
 
         public string BookType { get; set; }
 
@@ -34,14 +32,13 @@ namespace Library2Framework.DomainLayer
 
         }
 
-        public Edition(string Name, string Domain, string PublishingHouseName, int PageNr, string BookType,
+        public Edition(string Name, string PublishingHouseName, int PageNr, string BookType,
             int PublicationYear, int InitialStock, int BorrowedBooks=0, int ReadingRoomBooks=0)
         {
             this.Name = Name;
             this.PublishingHouseName = PublishingHouseName;
             this.PageNr = PageNr;
             this.PublicationYear = PublicationYear;
-            this.Domain = Domain;
             this.BookType = BookType;
             this.InitialStock = InitialStock;
             this.CurrentStock = InitialStock;
@@ -55,7 +52,6 @@ namespace Library2Framework.DomainLayer
                 "\n Publishing house name: " + Helper.FirstCharToUpper(this.PublishingHouseName) +
                 "\n Number of pages: " + this.PageNr +
                 "\n Publication year: " + this.PublicationYear +
-                "\n Domain: " + Helper.FirstCharToUpper(Domain) +
                 "\n Book type: " + Helper.FirstCharToUpper(BookType) +
                 "\n Initial stock: " + this.InitialStock +
                 "\n Current stock: " + this.CurrentStock +

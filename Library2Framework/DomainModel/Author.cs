@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library2Framework.DomainLayer
+namespace Library2Framework.DomainModel
 {
     public class Author
     {

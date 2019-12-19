@@ -1,4 +1,4 @@
-﻿using Library2Framework.DomainLayer;
+﻿using Library2Framework.DomainModel;
 using Library2Framework.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library2Framework.DataLayer
+namespace Library2Framework.DataMapper
 {
     public class UserDAL
     {
@@ -88,7 +88,7 @@ namespace Library2Framework.DataLayer
             }
         }
 
-        public static void AddLibrarian(User librarian)
+        public static void AddLibrarian(User librarian, bool isReader)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -105,12 +105,15 @@ namespace Library2Framework.DataLayer
                 SqlParameter address = new SqlParameter("@Address", librarian.Address);
                 SqlParameter phone = new SqlParameter("@Phone", librarian.PhoneNumber);
                 SqlParameter email = new SqlParameter("@Email", librarian.Email);
+                SqlParameter isReaderSql = new SqlParameter("@IsReader", isReader==true ? 1 : 0);
 
                 cmd.Parameters.Add(firstName);
                 cmd.Parameters.Add(lastName);
                 cmd.Parameters.Add(address);
                 cmd.Parameters.Add(phone);
                 cmd.Parameters.Add(email);
+                cmd.Parameters.Add(isReaderSql);
+
 
                 //deschidem conexiunea la BD        
                 con.Open();
@@ -163,10 +166,8 @@ namespace Library2Framework.DataLayer
                     CommandType = CommandType.StoredProcedure
                 };
 
-
                 SqlParameter emailSql = new SqlParameter("@Email", user.Email);
-               
-                
+                              
                 cmd.Parameters.Add(emailSql);
                 
                 con.Open();
@@ -175,13 +176,10 @@ namespace Library2Framework.DataLayer
                 while (reader.Read())
                 {
                     counter++;
-
                 }
                 reader.Close();
                 return counter == 0 ? false : true;
             }
         }
-
-
     }
 }

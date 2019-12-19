@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Library2Framework.DataLayer;
-    using Library2Framework.DomainLayer;
+    using Library2Framework.DataMapper;
+    using Library2Framework.DomainModel;
     using Library2Framework.ServiceLayer;
 
     public class WorkFlow
@@ -14,14 +14,16 @@
         private EditionServices _editionServices;
         private UserServices _userServices;
         private DomainServices _domainServices;
+        private BookServices _bookServices;
 
-        private const int Exit = 14;
+        private const int Exit = 16;
 
         public WorkFlow()
         {
             _editionServices = new EditionServices();
             _userServices = new UserServices();
             _domainServices = new DomainServices();
+            _bookServices = new BookServices();
         }
 
         public void Run()
@@ -63,45 +65,62 @@
                         _editionServices.AddAuthorForEdition();
                         ScreenPause();
                         break;
-                    case 7:
+                    case 7: //add new domain for one book
                         Console.ForegroundColor = ConsoleColor.Red;
-                        _editionServices.BorrowBook();
+                        _bookServices.AddDomainForBook();
                         ScreenPause();
                         break;
                     case 8:
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        List<Edition> books = EditionDAL.GetBooksAlphabetical();
-                        Display(books);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        _editionServices.BorrowEdition();
                         ScreenPause();
                         break;
                     case 9:
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        List<Edition> borrowed = EditionDAL.GetBorrowedBooksAlphabetical();
-                        Display(borrowed);
+                        List<Edition> books = EditionDAL.GetEditionsAlphabetical();
+                        Display(books);
                         ScreenPause();
                         break;
                     case 10:
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        List<Author> authors = _editionServices.GetAuthorsForEdition();
-                        Display(authors);
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        List<Edition> borrowedBooks = EditionDAL.GetBorrowedEditionsAlphabetical();
+                        Display(borrowedBooks);
                         ScreenPause();
                         break;
                     case 11:
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        List<Author> authors = _editionServices.GetAuthorsForEdition();
+                        if (authors != null)
+                        {
+                            Display(authors);
+                        }
+                        ScreenPause();
+                        break;
+                    case 12:
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         List<User> librarians = UserDAL.GetLibrarians();
                         Display(librarians);
                         ScreenPause();
                         break;
-                    case 12:
+                    case 13:
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         List<User> readers = UserDAL.GetReaders();
                         Display(readers);
                         ScreenPause();
                         break;
-                    case 13:
+                    case 14:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         List<Domain> domains = DomainDAL.GetDomains();
                         Display(domains);
+                        ScreenPause();
+                        break;
+                    case 15:
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        List<Domain> domainsForBook = _bookServices.GetDomainsForBook();
+                        if (domainsForBook != null)
+                        {
+                            Display(domainsForBook);
+                        }
                         ScreenPause();
                         break;
                     case Exit:
@@ -128,14 +147,16 @@
             Console.WriteLine("(4) Add new subdomain");
             Console.WriteLine("(5) Add new edition");
             Console.WriteLine("(6) Add new author for one edition");
-            Console.WriteLine("(7) Borrow edition");
-            Console.WriteLine("(8) List all books alphabetically");
-            Console.WriteLine("(9) List all borrowed books alphabetically");
-            Console.WriteLine("(10) List all authors for one book");
-            Console.WriteLine("(11) List librarians");
-            Console.WriteLine("(12) List readers");
-            Console.WriteLine("(13) List domains");
-            Console.WriteLine("(14) Exit application");
+            Console.WriteLine("(7) Add new domain for one book");
+            Console.WriteLine("(8) Borrow edition");
+            Console.WriteLine("(9) List all books alphabetically");
+            Console.WriteLine("(10) List all borrowed books alphabetically");
+            Console.WriteLine("(11) List all authors for one book");
+            Console.WriteLine("(12) List librarians");
+            Console.WriteLine("(13) List readers");
+            Console.WriteLine("(14) List domains");
+            Console.WriteLine("(15) List domains for one book");
+            Console.WriteLine("(16) Exit application");
             Console.ResetColor();
         }
 
@@ -159,10 +180,18 @@
 
         private void Display<T>(List<T> list)
         {
-            foreach (T obj in list)
+            if (list.Count == 0)
             {
-                Console.WriteLine("\n" + (list.IndexOf(obj)+1) + ". " + obj);
+                Console.WriteLine("\nThere are no items!");
             }
+            else
+            {
+                foreach (T obj in list)
+                {
+                    Console.WriteLine("\n" + (list.IndexOf(obj) + 1) + ". " + obj);
+                }
+            }
+            
         }
     }
 }

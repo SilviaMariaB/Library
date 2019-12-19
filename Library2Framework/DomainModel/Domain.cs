@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library2Framework.DomainLayer
+namespace Library2Framework.DomainModel
 {
     public class Domain
     {
@@ -19,15 +19,13 @@ namespace Library2Framework.DomainLayer
         {
             this.ID = ID;
             this.DomainName = DomainName;
-            this.ParentName = ParentName;
-            
+            this.ParentName = ParentName;           
         }
 
         public Domain(string DomainName, int ID = 0)
         {
             this.ID = ID;
             this.DomainName = DomainName;
-
         }
         public Domain()
         {
@@ -35,8 +33,15 @@ namespace Library2Framework.DomainLayer
         }
         public override string ToString()
         {
-            return "\n Domain name: " + Helper.FirstCharToUpper(this.DomainName) + 
-                "\n Parent name: " + Helper.FirstCharToUpper(this.ParentName) ;
+            if(this.ParentName != null)
+            {
+                return "\n Domain name: " + Helper.FirstCharToUpper(this.DomainName) +
+                 "\n Parent name: " + Helper.FirstCharToUpper(this.ParentName);
+            }
+            else
+            {
+                return "\n Domain name: " + Helper.FirstCharToUpper(this.DomainName);
+            }
         }
     }
 }

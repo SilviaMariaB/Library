@@ -1,5 +1,5 @@
-﻿using Library2Framework.DataLayer;
-using Library2Framework.DomainLayer;
+﻿using Library2Framework.DataMapper;
+using Library2Framework.DomainModel;
 using Library2Framework.Utils;
 using System;
 using System.Collections.Generic;
@@ -11,57 +11,84 @@ namespace Library2Framework.ServiceLayer
 {
     public class EditionServices
     {
-        public List<Author> GetAuthorsForEdition()
+        public List<Author> GetAuthorsForEdition() 
         {
-            string BookName = Helper.ReadString("Introduce the name of the book:");
+            string bookName = Helper.ReadString("Introduce the name of the book:");
 
-            int PublicationYear = Helper.ReadYear("Introduce the year of publishing:");
+            List<Author> authors = null;
 
-            string PublishingHouseName = Helper.ReadString("Introduce publishing house name:");
-
-            List<Author> authors = AuthorDAL.GetAuthorsForBook(BookName, PublicationYear, PublishingHouseName);
-
-            if (authors.Count == 0)
+            if (BookDAL.CheckBook(bookName))
             {
-                Helper.DisplayError("There are no items with those atributes!");
+                int PublicationYear = Helper.ReadYear("Introduce the year of publishing:");
+
+                string PublishingHouseName = Helper.ReadString("Introduce publishing house name:");
+
+                if(EditionDAL.CheckEdition(bookName, PublishingHouseName, PublicationYear))
+                {
+                    authors = AuthorDAL.GetAuthorsForBook(bookName, PublicationYear, PublishingHouseName);
+                }
+                else
+                {
+                    Helper.DisplayError("\n Edition doesn't exist!");
+                }
+            }
+            else
+            {
+                Helper.DisplayError("\n Wrong book name!");
 
             }
-
+           
             return authors;
         }
 
         public void AddEdition()
         {
-            string name = Helper.ReadString("\nInsert book name: ");
-            string domain = Helper.ReadString("\nInsert domain name: ");
+            string bookName = Helper.ReadString("\nInsert book name: ");
 
-            if (DomainDAL.CheckDomain(domain))
+            string domain;
+            
+
+            if (BookDAL.CheckBook(bookName))
             {
-                string authorName = Helper.ReadString("\nInsert author name: ");
-                string publishingHouse = Helper.ReadString("\nInsert publishing house: ");
-                int pageNr = Helper.ReadInteger("\nInsert page number:");
-                string bookType = Helper.ReadString("\nInsert book type: ");
-                int publicationYear = Helper.ReadYear("\nInsert publication year: ");
-                int initialStock = Helper.ReadInteger("\nInsert initial stock:");
-
-                Edition edition = new Edition(name, domain, publishingHouse, pageNr, bookType, publicationYear, initialStock);
-
-                if (!EditionDAL.CheckEdition(name, publishingHouse, publicationYear))
-                {
-                    Author author = new Author(authorName);
-
-                    EditionDAL.AddEdition(edition, author);
-
-                    Console.WriteLine("\n Operation completed succesfully!");
-                }
-                else
-                {
-                    Helper.DisplayError("\n Edition already exist!");
-                }
+                domain = "";
+                ContinueAddEdition(bookName, domain);
             }
             else
             {
-                Helper.DisplayError("\n Inserted domain doesn't exist!");
+                domain = Helper.ReadString("\nInsert domain name: ");
+                if (DomainDAL.CheckDomain(domain))
+                {
+                    ContinueAddEdition(bookName, domain);
+                }
+                else
+                {
+                    Helper.DisplayError("\n Inserted domain doesn't exist!");
+                }
+            }
+        }
+
+        private void ContinueAddEdition(string bookName, string domain)
+        {
+            string authorName = Helper.ReadString("\nInsert author name: ");
+            string publishingHouse = Helper.ReadString("\nInsert publishing house: ");
+            int pageNr = Helper.ReadInteger("\nInsert page number:");
+            string bookType = Helper.ReadString("\nInsert book type: ");
+            int publicationYear = Helper.ReadYear("\nInsert publication year: ");
+            int initialStock = Helper.ReadInteger("\nInsert initial stock:");
+
+            Edition edition = new Edition(bookName, publishingHouse, pageNr, bookType, publicationYear, initialStock);
+
+            if (!EditionDAL.CheckEdition(bookName, publishingHouse, publicationYear))
+            {
+                Author author = new Author(authorName);
+
+                EditionDAL.AddEdition(edition, author, domain);
+
+                Console.WriteLine("\n Operation completed succesfully!");
+            }
+            else
+            {
+                Helper.DisplayError("\n Edition already exist!");
             }
         }
 
@@ -69,25 +96,34 @@ namespace Library2Framework.ServiceLayer
         {
             string bookName = Helper.ReadString("Introduce the name of the book: ");
 
-            if (EditionDAL.CheckBook(bookName))
+            if (BookDAL.CheckBook(bookName))
             {
                 int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
 
                 string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
 
-                string authorName = Helper.ReadString("Introduce the name of the author: ");
-
-                Author author = new Author(authorName);
-                
-                Edition edition = new Edition()
+                if(EditionDAL.CheckEdition(bookName,publishingHouseName,publicationYear))
                 {
-                    PublicationYear = publicationYear,
-                    PublishingHouseName = publishingHouseName,
-                    Name = bookName
-                };
+                    string authorName = Helper.ReadString("Introduce the name of the author: ");
 
-                EditionDAL.AddAuthorForEdition(author, edition);
-                Console.WriteLine("\n Operation completed succesfully!");
+                    Author author = new Author(authorName);
+
+                    Edition edition = new Edition()
+                    {
+                        PublicationYear = publicationYear,
+                        PublishingHouseName = publishingHouseName,
+                        Name = bookName
+                    };
+
+                    EditionDAL.AddAuthorForEdition(author, edition);
+                    Console.WriteLine("\n Operation completed succesfully!");
+                }
+                else
+                {
+                    Helper.DisplayError("\n Edition doesn't exist!");
+                }
+
+
             }
             else
             {
@@ -95,7 +131,7 @@ namespace Library2Framework.ServiceLayer
             }            
         }
 
-        public void BorrowBook()
+        public void BorrowEdition()
         {
             string firstName = Helper.ReadString("Introduce first name: ");
             string lastName = Helper.ReadString("Introduce last name: ");
@@ -105,7 +141,7 @@ namespace Library2Framework.ServiceLayer
 
                 string bookName = Helper.ReadString("Introduce the name of the book: ");
 
-                if (EditionDAL.CheckBook(bookName))
+                if (BookDAL.CheckBook(bookName))
                 {
                     int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
 
@@ -133,7 +169,7 @@ namespace Library2Framework.ServiceLayer
 
                             ///////////////////////////////////////////verificari constante BLABLABLA
 
-                            EditionDAL.BorrowBook(user, edition, author, endDate);
+                            EditionDAL.BorrowEdition(user, edition, author, endDate);
                             Console.WriteLine("\n Operation completed succesfully!");
                         }
                         else

@@ -1,4 +1,4 @@
-﻿namespace Library2Framework.DataLayer
+﻿namespace Library2Framework.DataMapper
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Library2Framework.DomainLayer;
+    using Library2Framework.DomainModel;
     using Library2Framework.Utils;
 
     public class AuthorDAL

@@ -61,7 +61,10 @@ create table Borrow
 	StartDate date,
 	EndDate date,
 )
-
+create table Book_Domain
+(	BookId int not null foreign key references Book(ID),
+	DomainId int not null foreign key references Domain(ID)
+	)
 
 ALTER TABLE [User]
 ADD CONSTRAINT ReaderConstraint

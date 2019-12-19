@@ -1,18 +1,18 @@
-﻿using Library2Framework.DomainLayer;
-using Library2Framework.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library2Framework.DomainModel;
+using Library2Framework.Utils;
 
-namespace Library2Framework.DataLayer
+namespace Library2Framework.DataMapper
 {
     public class EditionDAL
     {
-        public static List<Edition> GetBooksAlphabetical()
+        public static List<Edition> GetEditionsAlphabetical()
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -40,12 +40,11 @@ namespace Library2Framework.DataLayer
                             PublishingHouseName = reader.GetString(1),
                             PageNr = reader.GetInt32(2),
                             PublicationYear = reader.GetInt32(3),
-                            Domain = reader.GetString(4),
-                            BookType = reader.GetString(5),
-                            InitialStock = reader.GetInt32(6),
-                            CurrentStock = reader.GetInt32(7),
-                            BorrowedBooks = reader.GetInt32(8),
-                            ReadingRoomBooks = reader.GetInt32(9)
+                            BookType = reader.GetString(4),
+                            InitialStock = reader.GetInt32(5),
+                            CurrentStock = reader.GetInt32(6),
+                            BorrowedBooks = reader.GetInt32(7),
+                            ReadingRoomBooks = reader.GetInt32(8)
                         }
                  );
                 }
@@ -54,7 +53,7 @@ namespace Library2Framework.DataLayer
             }
         }
 
-        public static List<Edition> GetBorrowedBooksAlphabetical()
+        public static List<Edition> GetBorrowedEditionsAlphabetical()
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -82,44 +81,15 @@ namespace Library2Framework.DataLayer
                             PublishingHouseName = reader.GetString(1),
                             PageNr = reader.GetInt32(2),
                             PublicationYear = reader.GetInt32(3),
-                            Domain = reader.GetString(4),
-                            InitialStock = reader.GetInt32(5),
-                            CurrentStock = reader.GetInt32(6),
-                            BorrowedBooks = reader.GetInt32(7),
-                            ReadingRoomBooks = reader.GetInt32(8)
+                            InitialStock = reader.GetInt32(4),
+                            CurrentStock = reader.GetInt32(5),
+                            BorrowedBooks = reader.GetInt32(6),
+                            ReadingRoomBooks = reader.GetInt32(7)
                         }
                  );
                 }
                 reader.Close();
                 return result;
-            }
-        }
-
-        public static Boolean CheckBook(string bookName)
-        {
-            using (SqlConnection con = DBConnection.Connection)
-            {
-                SqlCommand cmd = new SqlCommand("GetIdForBook", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-
-                SqlParameter bookNameSQL = new SqlParameter("@BookName", bookName);
-
-                cmd.Parameters.Add(bookNameSQL
-);
-
-                con.Open();
-                int counter = 0;
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    counter++;
-
-                }
-                reader.Close();
-                return counter == 0 ? false : true;
             }
         }
 
@@ -154,7 +124,7 @@ namespace Library2Framework.DataLayer
             }
         }
         
-        public static void AddEdition(Edition edition,Author author)
+        public static void AddEdition(Edition edition,Author author, string domain)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -167,7 +137,7 @@ namespace Library2Framework.DataLayer
                 };
 
                 SqlParameter bookName = new SqlParameter("@Name", edition.Name);
-                SqlParameter domainName = new SqlParameter("@Domain", edition.Domain);
+                SqlParameter domainName = new SqlParameter("@Domain", domain);
                 SqlParameter authorName = new SqlParameter("@Author", author.AuthorName);
                 SqlParameter publishingHouse = new SqlParameter("@PublishingHouse", edition.PublishingHouseName);
                 SqlParameter pageNr = new SqlParameter("@PageNr", edition.PageNr);
@@ -225,7 +195,7 @@ namespace Library2Framework.DataLayer
 
         }
 
-        public static void BorrowBook(User user,Edition edition, Author author, DateTime endDate)
+        public static void BorrowEdition(User user,Edition edition, Author author, DateTime endDate)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
