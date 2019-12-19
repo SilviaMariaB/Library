@@ -15,7 +15,7 @@
         private UserServices _userServices;
         private DomainServices _domainServices;
 
-        private const int Exit = 13;
+        private const int Exit = 14;
 
         public WorkFlow()
         {
@@ -49,51 +49,56 @@
                         ScreenPause();
                         break;
                     case 4:
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        _domainServices.AddSubdomain();
+                        ScreenPause();
+                        break;
+                    case 5:
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                         _editionServices.AddEdition();
                         ScreenPause();
                         break;
-                    case 5:
+                    case 6:
                         Console.ForegroundColor = ConsoleColor.Red;
                         _editionServices.AddAuthorForEdition();
                         ScreenPause();
                         break;
-                    case 6:
+                    case 7:
                         Console.ForegroundColor = ConsoleColor.Red;
                         _editionServices.BorrowBook();
                         ScreenPause();
                         break;
-                    case 7:
+                    case 8:
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         List<Edition> books = EditionDAL.GetBooksAlphabetical();
                         Display(books);
                         ScreenPause();
                         break;
-                    case 8:
+                    case 9:
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         List<Edition> borrowed = EditionDAL.GetBorrowedBooksAlphabetical();
                         Display(borrowed);
                         ScreenPause();
                         break;
-                    case 9:
+                    case 10:
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         List<Author> authors = _editionServices.GetAuthorsForEdition();
                         Display(authors);
                         ScreenPause();
                         break;
-                    case 10:
+                    case 11:
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         List<User> librarians = UserDAL.GetLibrarians();
                         Display(librarians);
                         ScreenPause();
                         break;
-                    case 11:
+                    case 12:
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         List<User> readers = UserDAL.GetReaders();
                         Display(readers);
                         ScreenPause();
                         break;
-                    case 12:
+                    case 13:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         List<Domain> domains = DomainDAL.GetDomains();
                         Display(domains);
@@ -120,16 +125,17 @@
             Console.WriteLine("(1) Add new reader");
             Console.WriteLine("(2) Add new librarian");
             Console.WriteLine("(3) Add new domain");
-            Console.WriteLine("(4) Add new edition");
-            Console.WriteLine("(5) Add new author for one edition");
-            Console.WriteLine("(6) Borrow edition");
-            Console.WriteLine("(7) List all books alphabetically");
-            Console.WriteLine("(8) List all borrowed books alphabetically");
-            Console.WriteLine("(9) List all authors for one book");
-            Console.WriteLine("(10) List librarians");
-            Console.WriteLine("(11) List readers");
-            Console.WriteLine("(12) List domains");
-            Console.WriteLine("(13) Exit application");
+            Console.WriteLine("(4) Add new subdomain");
+            Console.WriteLine("(5) Add new edition");
+            Console.WriteLine("(6) Add new author for one edition");
+            Console.WriteLine("(7) Borrow edition");
+            Console.WriteLine("(8) List all books alphabetically");
+            Console.WriteLine("(9) List all borrowed books alphabetically");
+            Console.WriteLine("(10) List all authors for one book");
+            Console.WriteLine("(11) List librarians");
+            Console.WriteLine("(12) List readers");
+            Console.WriteLine("(13) List domains");
+            Console.WriteLine("(14) Exit application");
             Console.ResetColor();
         }
 

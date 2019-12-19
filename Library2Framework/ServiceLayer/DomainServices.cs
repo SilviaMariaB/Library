@@ -10,25 +10,58 @@ namespace Library2Framework.ServiceLayer
 {
     class DomainServices
     {
-        public void AddDomain()
+        public void AddSubdomain()
         {
-            string domainName = Helper.ReadString("\n Insert domain name: ");
-            string parentName = Helper.ReadString("\n Insert parent name: ");
+            string domainName = Helper.ReadString("\n Insert subdomain name: ");
 
-
-            Domain domain = new Domain(domainName, parentName);
-
-            if(DomainDAL.CheckDomain(parentName))
+            if (DomainDAL.CheckDomain(domainName))
             {
-                DomainDAL.AddDomain(domain);
-                Console.WriteLine("\n Operation completed succesfully!");
+                Helper.DisplayError("\n " + Helper.FirstCharToUpper(domainName) + " already exist!");
             }
             else
             {
-                Helper.DisplayError("\n Wrong parent name!");
+                string parentName = Helper.ReadString("\n Insert domain(parent) name: ");
+
+                if (DomainDAL.CheckDomain(parentName))
+                {
+                    Domain domain = new Domain(domainName, parentName);
+                    DomainDAL.AddSubdomain(domain);
+                    Console.WriteLine("\n Operation completed succesfully!");
+                }
+                else
+                {
+                    Helper.DisplayError("\n Wrong parent name!");
+                }
+
+                
             }
 
 
+
+            
+
+            
+        }
+
+        public void AddDomain()
+        {
+            string domainName = Helper.ReadString("\n Insert domain name: ");
+
+            
+
+            if (DomainDAL.CheckDomain(domainName))
+            {
+                Helper.DisplayError("\n Domain already exist!");
+            }
+            else
+            {
+                Domain domain = new Domain(domainName);
+                DomainDAL.AddDomain(domain);
+                Console.WriteLine("\n Operation completed succesfully!");
+            }
+
+           
+            
         }
     }
 }

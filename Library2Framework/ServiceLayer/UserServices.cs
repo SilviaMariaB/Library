@@ -20,9 +20,17 @@
 
             User user = new User(firstName, lastName, address, phone, email, false, true);
 
-            UserDAL.AddLibrarian(user);
+            if (!UserDAL.CheckUser(user))
+            {
+                UserDAL.AddLibrarian(user);
 
-            Console.WriteLine("\n Operation completed succesfully!");
+                Console.WriteLine("\n Operation completed succesfully!");
+            }
+            else
+            {
+                Helper.DisplayError("Email address already used!");
+            }
+            
 
         }
 
@@ -36,9 +44,16 @@
 
             User user = new User(firstName, lastName, address, phone, email, false, true);
 
-            UserDAL.AddReader(user);
+            if (!UserDAL.CheckUser(user))
+            {
+                UserDAL.AddLibrarian(user);
 
-            Console.WriteLine("\n Operation completed succesfully!");
+                Console.WriteLine("\n Operation completed succesfully!");
+            }
+            else
+            {
+                Helper.DisplayError("Email address already used!");
+            }
 
         }
     }

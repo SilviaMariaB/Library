@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library2Framework.ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,14 +22,21 @@ namespace Library2Framework.DomainLayer
             this.ParentName = ParentName;
             
         }
+
+        public Domain(string DomainName, int ID = 0)
+        {
+            this.ID = ID;
+            this.DomainName = DomainName;
+
+        }
         public Domain()
         {
 
         }
         public override string ToString()
         {
-            return "\n Domain name: " + this.DomainName + 
-                "\n Parent name: " + this.ParentName ;
+            return "\n Domain name: " + Helper.FirstCharToUpper(this.DomainName) + 
+                "\n Parent name: " + Helper.FirstCharToUpper(this.ParentName) ;
         }
     }
 }

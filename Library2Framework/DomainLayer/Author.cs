@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library2Framework.ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace Library2Framework.DomainLayer
 
         public override string ToString()
         {
-            return "\n Author name: " + this.AuthorName ;
+            return "\n Author name: " + Helper.FirstCharToUpper(this.AuthorName) ;
         }
     }
 }

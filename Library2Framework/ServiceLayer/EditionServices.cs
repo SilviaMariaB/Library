@@ -32,12 +32,12 @@ namespace Library2Framework.ServiceLayer
 
         public void AddEdition()
         {
-            string name = Helper.ReadString("\nInsert name: ");
-            string domain = Helper.ReadString("\nInsert domain: ");
+            string name = Helper.ReadString("\nInsert book name: ");
+            string domain = Helper.ReadString("\nInsert domain name: ");
 
             if (DomainDAL.CheckDomain(domain))
             {
-                string authorName = Helper.ReadString("\nInsert author Name: ");
+                string authorName = Helper.ReadString("\nInsert author name: ");
                 string publishingHouse = Helper.ReadString("\nInsert publishing house: ");
                 int pageNr = Helper.ReadInteger("\nInsert page number:");
                 string bookType = Helper.ReadString("\nInsert book type: ");
@@ -45,19 +45,24 @@ namespace Library2Framework.ServiceLayer
                 int initialStock = Helper.ReadInteger("\nInsert initial stock:");
 
                 Edition edition = new Edition(name, domain, publishingHouse, pageNr, bookType, publicationYear, initialStock);
-                Author author = new Author(authorName);
 
-                EditionDAL.AddEdition(edition, author);
+                if (!EditionDAL.CheckEdition(name, publishingHouse, publicationYear))
+                {
+                    Author author = new Author(authorName);
 
-                Console.WriteLine("\n Operation completed succesfully!");
+                    EditionDAL.AddEdition(edition, author);
+
+                    Console.WriteLine("\n Operation completed succesfully!");
+                }
+                else
+                {
+                    Helper.DisplayError("\n Edition already exist!");
+                }
             }
             else
             {
                 Helper.DisplayError("\n Inserted domain doesn't exist!");
             }
-
-               
-
         }
 
         public void AddAuthorForEdition()
@@ -73,6 +78,7 @@ namespace Library2Framework.ServiceLayer
                 string authorName = Helper.ReadString("Introduce the name of the author: ");
 
                 Author author = new Author(authorName);
+                
                 Edition edition = new Edition()
                 {
                     PublicationYear = publicationYear,
@@ -82,14 +88,11 @@ namespace Library2Framework.ServiceLayer
 
                 EditionDAL.AddAuthorForEdition(author, edition);
                 Console.WriteLine("\n Operation completed succesfully!");
-
             }
             else
             {
                 Helper.DisplayError("\n Wrong book name!");
-            }
-
-            
+            }            
         }
 
         public void BorrowBook()
@@ -127,6 +130,8 @@ namespace Library2Framework.ServiceLayer
 
                             DateTime endDate = DateTime.Now.AddDays(daysLeft);
                             
+
+                            ///////////////////////////////////////////verificari constante BLABLABLA
 
                             EditionDAL.BorrowBook(user, edition, author, endDate);
                             Console.WriteLine("\n Operation completed succesfully!");

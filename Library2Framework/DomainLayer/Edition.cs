@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library2Framework.ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace Library2Framework.DomainLayer
 
         public int InitialStock { get; set; }
 
+        public int CurrentStock { get; set; }
+
         public int BorrowedBooks { get; set; }
 
         public int ReadingRoomBooks { get; set; }
@@ -41,19 +44,21 @@ namespace Library2Framework.DomainLayer
             this.Domain = Domain;
             this.BookType = BookType;
             this.InitialStock = InitialStock;
+            this.CurrentStock = InitialStock;
             this.BorrowedBooks = BorrowedBooks;
             this.ReadingRoomBooks = ReadingRoomBooks;
         }
 
         public override string ToString()
         {
-            return "\n Name: " + Name +
-                "\n Publishing house name: " + this.PublishingHouseName +
+            return "\n Book name: " + Name +
+                "\n Publishing house name: " + Helper.FirstCharToUpper(this.PublishingHouseName) +
                 "\n Number of pages: " + this.PageNr +
                 "\n Publication year: " + this.PublicationYear +
-                "\n Domain: " + Domain +
-                "\n Book type: " + BookType +
+                "\n Domain: " + Helper.FirstCharToUpper(Domain) +
+                "\n Book type: " + Helper.FirstCharToUpper(BookType) +
                 "\n Initial stock: " + this.InitialStock +
+                "\n Current stock: " + this.CurrentStock +
                 "\n Borrowed books: " + this.BorrowedBooks +
                 "\n Readingroom books: " + this.ReadingRoomBooks ;
         }

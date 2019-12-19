@@ -72,6 +72,9 @@ ADD CONSTRAINT LibrarianConstraint
 CHECK (IsLibrarian=0 or IsLibrarian=1)
 
 
+
+
+
 CREATE PROCEDURE AddReader
 	@FirstName VARCHAR(max),
 	@LastName VARCHAR(max),

@@ -65,7 +65,7 @@ namespace Library2Framework.ServiceLayer
         }
 
       
-        public Dictionary<string, int> GetConfigData()
+        public static Dictionary<string, int> GetConfigData()
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
             using (StreamReader reader = File.OpenText("E:/BIBLIOTECA/Library2Framework/Library2Framework/Resources/Config.txt")) //bloc de resurse
@@ -84,6 +84,11 @@ namespace Library2Framework.ServiceLayer
             }
 
             return data;
+        }
+
+        public static string FirstCharToUpper(string input)
+        {
+            return input.First().ToString().ToUpper() + input.Substring(1);
         }
     }
 }

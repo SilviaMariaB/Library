@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library2Framework.ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,14 +49,13 @@ namespace Library2Framework.DomainLayer
 
         public override string ToString()
         {
-            return  "\n First name: " + this.FirstName + 
-                "\n Last name: " + this.LastName +
+            return  "\n First name: " + Helper.FirstCharToUpper(this.FirstName) + 
+                "\n Last name: " + Helper.FirstCharToUpper(this.LastName) +
                 "\n Address: " + this.Address + 
                 "\n Phone number: " + this.PhoneNumber + 
                 "\n Email: " + this.Email + 
                 "\n Reader: " + this.Reader + 
                 "\n Librarian: " + this.Librarian ;
         }
-
     }
 }

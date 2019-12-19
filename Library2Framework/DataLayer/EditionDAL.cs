@@ -41,10 +41,11 @@ namespace Library2Framework.DataLayer
                             PageNr = reader.GetInt32(2),
                             PublicationYear = reader.GetInt32(3),
                             Domain = reader.GetString(4),
-                            BookType=reader.GetString(5),
+                            BookType = reader.GetString(5),
                             InitialStock = reader.GetInt32(6),
-                            BorrowedBooks = reader.GetInt32(7),
-                            ReadingRoomBooks = reader.GetInt32(8)
+                            CurrentStock = reader.GetInt32(7),
+                            BorrowedBooks = reader.GetInt32(8),
+                            ReadingRoomBooks = reader.GetInt32(9)
                         }
                  );
                 }
@@ -83,8 +84,9 @@ namespace Library2Framework.DataLayer
                             PublicationYear = reader.GetInt32(3),
                             Domain = reader.GetString(4),
                             InitialStock = reader.GetInt32(5),
-                            BorrowedBooks = reader.GetInt32(6),
-                            ReadingRoomBooks = reader.GetInt32(7)
+                            CurrentStock = reader.GetInt32(6),
+                            BorrowedBooks = reader.GetInt32(7),
+                            ReadingRoomBooks = reader.GetInt32(8)
                         }
                  );
                 }
@@ -185,9 +187,7 @@ namespace Library2Framework.DataLayer
                 //deschidem conexiunea la BD        
                 con.Open();
                 //creem o colectie in care sa memoram rezultatele procedurii stocate
-
                 cmd.ExecuteNonQuery();
-
             }
         }
 

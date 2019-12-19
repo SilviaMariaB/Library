@@ -164,11 +164,10 @@ namespace Library2Framework.DataLayer
                 };
 
 
-                SqlParameter firstName = new SqlParameter("@FirstName", user.FirstName);
-                SqlParameter lastName = new SqlParameter("@LastName", user.LastName);
+                SqlParameter emailSql = new SqlParameter("@Email", user.Email);
+               
                 
-                cmd.Parameters.Add(firstName);
-                cmd.Parameters.Add(lastName);
+                cmd.Parameters.Add(emailSql);
                 
                 con.Open();
                 int counter = 0;
