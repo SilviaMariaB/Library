@@ -131,6 +131,47 @@
                 return counter == 0 ? false : true;
             }
         }
+
+        public static string GetParentForDomain(string childName)
+        {
+            using (SqlConnection con = DBConnection.Connection)
+            {
+
+                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
+                //si o setam ca fiind de tip stored procedure
+                SqlCommand cmd = new SqlCommand("GetParentForDomain", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+
+                SqlParameter childNameSql = new SqlParameter("@childName", childName);
+
+
+                cmd.Parameters.Add(childNameSql);
+
+
+                //deschidem conexiunea la BD        
+                con.Open();
+                //creem o colectie in care sa memoram rezultatele procedurii stocate
+
+                string result = "";
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    result = reader.GetString(0);
+                }
+                reader.Close();
+
+                if (result.Equals(""))
+                {
+                    return null;
+                }
+                return result;
+
+            }
+        }
+
     }
 
 
