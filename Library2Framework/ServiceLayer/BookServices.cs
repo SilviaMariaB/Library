@@ -1,13 +1,13 @@
-﻿using Library2Framework.DataMapper;
-using Library2Framework.DomainModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library2Framework.ServiceLayer
+﻿namespace Library2Framework.ServiceLayer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Library2Framework.DataMapper;
+    using Library2Framework.DomainModel;
+
     public class BookServices
     {
         public List<Domain> GetDomainsForBook()

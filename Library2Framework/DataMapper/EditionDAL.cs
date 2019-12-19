@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library2Framework.DomainModel;
-using Library2Framework.Utils;
-
-namespace Library2Framework.DataMapper
+﻿namespace Library2Framework.DataMapper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Library2Framework.DomainModel;
+    using Library2Framework.Utils;
+
     public class EditionDAL
     {
         public static List<Edition> GetEditionsAlphabetical()

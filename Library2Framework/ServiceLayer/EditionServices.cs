@@ -1,14 +1,14 @@
-﻿using Library2Framework.DataMapper;
-using Library2Framework.DomainModel;
-using Library2Framework.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library2Framework.ServiceLayer
+﻿namespace Library2Framework.ServiceLayer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Library2Framework.DataMapper;
+    using Library2Framework.DomainModel;
+    using Library2Framework.Utils;
+
     public class EditionServices
     {
         public List<Author> GetAuthorsForEdition() 
