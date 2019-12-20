@@ -10,73 +10,87 @@
 
     public class BookServices
     {
+        
         public List<Domain> GetDomainsForBook()
         {
             string bookName = Helper.ReadString("Introduce the name of the book:");
 
             List<Domain> authors = null;
 
-            if (BookDAL.CheckBook(bookName))
-            {
-                authors = BookDAL.GetDomainsForBook(bookName);               
-            }
-            else
+            while (!BookDAL.CheckBook(bookName))
             {
                 Helper.DisplayError("\n Wrong book name!");
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                bookName = Helper.ReadString("Reintroduce the name of the book:");
             }
+
+            authors = BookDAL.GetDomainsForBook(bookName);
+
             return authors;
         }
-
+      
         public void AddDomainForBook()
         {
             string bookName = Helper.ReadString("Introduce the name of the book: ");
 
-            if (BookDAL.CheckBook(bookName))
+            while (!BookDAL.CheckBook(bookName))
             {
-                string newDomainName = Helper.ReadString("Introduce the new domain: ");
+                Helper.DisplayError("\n Wrong book name!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                bookName = Helper.ReadString("Reintroduce the name of the book: ");
+            }
 
-                //aici verific ca noul domeniu sa nu contina deja cartea
-                bool ok = true;
-                foreach(Domain domain in BookDAL.GetDomainsForBook(bookName))
+            string newDomainName = Helper.ReadString("Introduce the new domain: ");
+            //aici verific ca noul domeniu sa nu contina deja cartea
+            bool ok = true;
+            foreach (Domain domain in BookDAL.GetDomainsForBook(bookName))
+            {
+                if (newDomainName.Equals(domain.DomainName))
                 {
-                    if(newDomainName.Equals(domain.DomainName))
-                    {
-                        ok = false;
-                        break;
-                    }
+                    ok = false;
+                    break;
                 }
+            }
 
-                if (DomainDAL.CheckDomain(newDomainName) && ok)
+
+            while (!DomainDAL.CheckDomain(newDomainName) || !ok || !validDomain(bookName, newDomainName))
+            {
+                if(!validDomain(bookName, newDomainName))
                 {
-                    int size = BookDAL.GetDomainsForBook(bookName).Count;
-                    int DOM = Helper.GetConfigData()["DOM"];
-                    if (size < DOM)
-                    {
+                    Helper.DisplayError("\n The new domain is an ascendent of one of the existing domains of the book!");
 
-                        if(validDomain(bookName,newDomainName))
-                        {
-                            BookDAL.AddDomainForBook(newDomainName, bookName);
-                            Console.WriteLine("\n Operation completed succesfully!");
-                        }
-                        else
-                        {
-                            Helper.DisplayError("\n The new domain is an ascendent of one of the existing domains of the book!");
-                        }      
-                    }
-                    else
-                    {
-                        Helper.DisplayError("\nA book can belong to " + DOM + " domains. (DOM = " + DOM +" )");
-                    }
                 }
                 else
                 {
                     Helper.DisplayError("\n Invalid domain!");
                 }
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                newDomainName = Helper.ReadString("Reintroduce the new domain: ");
+
+                ok = true;
+                foreach (Domain domain in BookDAL.GetDomainsForBook(bookName))
+                {
+                    if (newDomainName.Equals(domain.DomainName))
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+            }
+            
+            int size = BookDAL.GetDomainsForBook(bookName).Count;
+            int DOM = Helper.GetConfigData()["DOM"];
+            if (size < DOM)
+            {
+                BookDAL.AddDomainForBook(newDomainName, bookName);
+                Console.WriteLine("\n Operation completed succesfully!");
             }
             else
             {
-                Helper.DisplayError("\n Wrong book name!");
+                Helper.DisplayError("\nA book can belong to " + DOM + " domains. (DOM = " + DOM +" )");
             }
+            
         }
 
         //functia verifica daca noul domeniu este sau nu intr-o relatie stramos-descendent

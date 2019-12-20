@@ -13,7 +13,7 @@
         public static void DisplayError(string error)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(error);
+            Console.WriteLine(" [ERROR]: " + error);
             Console.ResetColor();
         }
 
@@ -21,6 +21,13 @@
         {
             Console.Write(message);
             string str = Console.ReadLine();
+
+            while(String.IsNullOrEmpty(str))
+            {
+                Console.WriteLine(" Empty input!");
+                Console.Write(message);
+                str = Console.ReadLine();
+            }
             str = str.ToLower();
             str = str.Trim();
             return str;

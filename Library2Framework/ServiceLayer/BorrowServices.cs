@@ -14,16 +14,15 @@ namespace Library2Framework.ServiceLayer
         {
             string email = Helper.ReadString("Introduce the email of the user:");
 
-            List<Borrow> borrows = null;
-
-            if (UserDAL.CheckUser(email))
-            {
-                borrows = BorrowDAL.GetBorrowsForUser(email);
-            }
-            else
+            while (!UserDAL.CheckUser(email))
             {
                 Helper.DisplayError("\n Wrong email!");
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                email = Helper.ReadString("Reintroduce the email of the user:");
             }
+
+            List<Borrow> borrows = null;
+            borrows = BorrowDAL.GetBorrowsForUser(email);
             return borrows;
         }
     }

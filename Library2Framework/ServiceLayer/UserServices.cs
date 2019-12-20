@@ -18,40 +18,39 @@
             string phone = Helper.ReadString("\nInsert phone number: ");
             string email = Helper.ReadString("\nInsert email:");
 
-            User user = new User(firstName, lastName, address, phone, email);
-
-            if (!UserDAL.CheckUser(email))
-            {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("\n Do you want to be a reader too?\n 1. yes\n 2. no");
-                bool ok = false;
-                do
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    int choice = Helper.ReadInteger("\n Insert option: ");
-                    switch (choice)
-                    {
-                        case 1:
-                            UserDAL.AddLibrarian(user,true);
-                            ok = false;
-                            break;
-                        case 2:
-                            UserDAL.AddLibrarian(user, false);
-                            ok = false;
-                            break;
-                        default:
-                            ok = true;
-                            break;
-                    }
-
-                } while (ok);
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("\n Operation completed succesfully!");
-            }
-            else
+            while(UserDAL.CheckUser(email))
             {
                 Helper.DisplayError("Email address already used!");
-            }          
+                Console.ForegroundColor = ConsoleColor.Blue;
+                email = Helper.ReadString("\nReintroduce email:");
+            }
+
+            User user = new User(firstName, lastName, address, phone, email);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n Do you want to be a reader too?\n 1. yes\n 2. no");
+            bool ok = false;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                int choice = Helper.ReadInteger("\n Insert option: ");
+                switch (choice)
+                {
+                    case 1:
+                        UserDAL.AddLibrarian(user,true);
+                        ok = false;
+                        break;
+                    case 2:
+                        UserDAL.AddLibrarian(user, false);
+                        ok = false;
+                        break;
+                    default:
+                        ok = true;
+                        break;
+                }
+
+            } while (ok);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("\n Operation completed succesfully!");
         }
 
         public void AddReader()
@@ -62,17 +61,16 @@
             string phone = Helper.ReadString("\nInsert phone number: ");
             string email = Helper.ReadString("\nInsert email:");
 
-            User user = new User(firstName, lastName, address, phone, email);
-
-            if (!UserDAL.CheckUser(email))
-            {
-                UserDAL.AddReader(user);
-                Console.WriteLine("\n Operation completed succesfully!");
-            }
-            else
+            while(UserDAL.CheckUser(email))
             {
                 Helper.DisplayError("Email address already used!");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                email = Helper.ReadString("\nReintroduce email:");
             }
+
+            User user = new User(firstName, lastName, address, phone, email);
+            UserDAL.AddReader(user);
+            Console.WriteLine("\n Operation completed succesfully!");
         }
     }
 }

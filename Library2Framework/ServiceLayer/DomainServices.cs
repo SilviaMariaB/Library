@@ -14,54 +14,37 @@
         {
             string domainName = Helper.ReadString("\n Insert subdomain name: ");
 
-            if (DomainDAL.CheckDomain(domainName))
+            while (DomainDAL.CheckDomain(domainName))
             {
                 Helper.DisplayError("\n " + Helper.FirstCharToUpper(domainName) + " already exist!");
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                domainName = Helper.ReadString("\n Reintroduce subdomain name: ");
             }
-            else
+
+            string parentName = Helper.ReadString("\n Insert domain(parent) name: ");
+            while (!DomainDAL.CheckDomain(parentName))
             {
-                string parentName = Helper.ReadString("\n Insert domain(parent) name: ");
-
-                if (DomainDAL.CheckDomain(parentName))
-                {
-                    Domain domain = new Domain(domainName, parentName);
-                    DomainDAL.AddSubdomain(domain);
-                    Console.WriteLine("\n Operation completed succesfully!");
-                }
-                else
-                {
-                    Helper.DisplayError("\n Wrong parent name!");
-                }
-
-                
+                Helper.DisplayError("\n Wrong parent name!");
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                parentName = Helper.ReadString("\n Reintroduce domain(parent) name: ");
             }
+            Domain domain = new Domain(domainName, parentName);
+            DomainDAL.AddSubdomain(domain);
+            Console.WriteLine("\n Operation completed succesfully!");
 
-
-
-            
-
-            
         }
-
         public void AddDomain()
         {
             string domainName = Helper.ReadString("\n Insert domain name: ");
-
-            
-
-            if (DomainDAL.CheckDomain(domainName))
+            while (DomainDAL.CheckDomain(domainName))
             {
                 Helper.DisplayError("\n Domain already exist!");
-            }
-            else
-            {
-                Domain domain = new Domain(domainName);
-                DomainDAL.AddDomain(domain);
-                Console.WriteLine("\n Operation completed succesfully!");
+                domainName = Helper.ReadString("\n Reintroduce domain name: ");
             }
 
-           
-            
+            Domain domain = new Domain(domainName);
+            DomainDAL.AddDomain(domain);
+            Console.WriteLine("\n Operation completed succesfully!");
         }
     }
 }
