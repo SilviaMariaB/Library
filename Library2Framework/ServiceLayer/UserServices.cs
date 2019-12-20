@@ -20,7 +20,7 @@
 
             User user = new User(firstName, lastName, address, phone, email);
 
-            if (!UserDAL.CheckUser(user))
+            if (!UserDAL.CheckUser(email))
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("\n Do you want to be a reader too?\n 1. yes\n 2. no");
@@ -64,7 +64,7 @@
 
             User user = new User(firstName, lastName, address, phone, email);
 
-            if (!UserDAL.CheckUser(user))
+            if (!UserDAL.CheckUser(email))
             {
                 UserDAL.AddReader(user);
                 Console.WriteLine("\n Operation completed succesfully!");

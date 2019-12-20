@@ -12,6 +12,12 @@
 
     public class EditionDAL
     {
+        public struct Inventory
+        {
+            public int currentStock;
+            public int initialStock;
+        }
+
         public static List<Edition> GetEditionsAlphabetical()
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -153,10 +159,8 @@
                 cmd.Parameters.Add(bookType);
                 cmd.Parameters.Add(publicationYear);
                 cmd.Parameters.Add(initialStock);
-
-                //deschidem conexiunea la BD        
+       
                 con.Open();
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
                 cmd.ExecuteNonQuery();
             }
         }
@@ -195,7 +199,7 @@
 
         }
 
-        public static void BorrowEdition(User user,Edition edition, Author author, DateTime endDate)
+        public static void BorrowEdition(string email,Edition edition, Author author, DateTime endDate)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -207,16 +211,14 @@
                     CommandType = CommandType.StoredProcedure
                 };
 
-                SqlParameter firstNameSQL = new SqlParameter("@FirstName", user.FirstName);
-                SqlParameter lastNameSQL = new SqlParameter("@LastName", user.LastName);
+                SqlParameter emailSql = new SqlParameter("@Email", email);
                 SqlParameter bookNameSQL = new SqlParameter("@BookName", edition.Name);
                 SqlParameter authorSQL = new SqlParameter("@Author", author.AuthorName);
                 SqlParameter publishingHouseSQL = new SqlParameter("@PublishingHouse", edition.PublishingHouseName);
                 SqlParameter publicationYearSQL = new SqlParameter("@PublicationYear", edition.PublicationYear);
                 SqlParameter endDateSQL = new SqlParameter("@EndDate", endDate);
 
-                cmd.Parameters.Add(firstNameSQL);
-                cmd.Parameters.Add(lastNameSQL);
+                cmd.Parameters.Add(emailSql);
                 cmd.Parameters.Add(bookNameSQL);
                 cmd.Parameters.Add(authorSQL);
                 cmd.Parameters.Add(publishingHouseSQL);
@@ -229,6 +231,39 @@
 
                 cmd.ExecuteNonQuery();
 
+            }
+
+        }
+
+        public static Inventory GetEditionInventory(string bookName, string publishingHouse, int publicationYear)
+        {
+            using (SqlConnection con = DBConnection.Connection)
+            {
+                SqlCommand cmd = new SqlCommand("GetEditionInventory", con)
+                {
+                    CommandType = CommandType.StoredProcedure,
+                };
+
+                SqlParameter bookNameSQL = new SqlParameter("@BookName", bookName);
+                SqlParameter publishingHouseSQL = new SqlParameter("@PublishHouseName", publishingHouse);
+                SqlParameter publicationYearSQL = new SqlParameter("@PubYear", publicationYear);
+
+                cmd.Parameters.Add(bookNameSQL);
+                cmd.Parameters.Add(publishingHouseSQL);
+                cmd.Parameters.Add(publicationYearSQL);
+                
+                con.Open();
+                Inventory inventory = new Inventory();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    inventory.currentStock = reader.GetInt32(0);
+                    inventory.initialStock = reader.GetInt32(1);
+                }
+
+                reader.Close();
+                return inventory;
             }
 
         }

@@ -157,7 +157,7 @@
             }
         }
 
-        public static Boolean CheckUser(User user)
+        public static Boolean CheckUser(string email)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -166,7 +166,7 @@
                     CommandType = CommandType.StoredProcedure
                 };
 
-                SqlParameter emailSql = new SqlParameter("@Email", user.Email);
+                SqlParameter emailSql = new SqlParameter("@Email", email);
                               
                 cmd.Parameters.Add(emailSql);
                 

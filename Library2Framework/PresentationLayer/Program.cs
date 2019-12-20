@@ -16,7 +16,7 @@
 
         public static void Main(string[] args)
         {
-            WorkFlow wf = new WorkFlow();
+            Application wf = new Application();
             wf.Run();
         }
 

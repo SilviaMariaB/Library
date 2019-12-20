@@ -8,6 +8,7 @@
     using Library2Framework.DataMapper;
     using Library2Framework.DomainModel;
     using Library2Framework.Utils;
+    using static Library2Framework.DataMapper.EditionDAL;
 
     public class EditionServices
     {
@@ -133,10 +134,8 @@
 
         public void BorrowEdition()
         {
-            string firstName = Helper.ReadString("Introduce first name: ");
-            string lastName = Helper.ReadString("Introduce last name: ");
-            User user = new User(firstName, lastName);
-            if (UserDAL.CheckUser(user))
+            string email = Helper.ReadString("Introduce user's email: ");
+            if (UserDAL.CheckUser(email))
             {
 
                 string bookName = Helper.ReadString("Introduce the name of the book: ");
@@ -155,22 +154,24 @@
 
                         if (AuthorDAL.CheckAuthor(author))
                         {
-                            Edition edition = new Edition()
+                            if (ValidBorrow(email, bookName, publishingHouseName, publicationYear))
                             {
-                                PublicationYear = publicationYear,
-                                PublishingHouseName = publishingHouseName,
-                                Name = bookName
-                            };
+                                Edition edition = new Edition()
+                                {
+                                    PublicationYear = publicationYear,
+                                    PublishingHouseName = publishingHouseName,
+                                    Name = bookName
+                                };
 
-                            int daysLeft = Helper.ReadInteger("Introduce the number of days of the borrow: ");
+                                int daysLeft = Helper.ReadInteger("Introduce the number of days of the borrow: ");
 
-                            DateTime endDate = DateTime.Now.AddDays(daysLeft);
-                            
+                                DateTime endDate = DateTime.Now.AddDays(daysLeft);
 
-                            ///////////////////////////////////////////verificari constante BLABLABLA
+                                ///////////////////////////////////////////verificari constante BLABLABLA
 
-                            EditionDAL.BorrowEdition(user, edition, author, endDate);
-                            Console.WriteLine("\n Operation completed succesfully!");
+                                EditionDAL.BorrowEdition(email, edition, author, endDate);
+                                Console.WriteLine("\n Operation completed succesfully!");
+                            } 
                         }
                         else
                         {
@@ -181,7 +182,6 @@
                     {
                         Helper.DisplayError("\n Edition not found!");
                     }
-
                 }
                 else
                 {
@@ -192,7 +192,38 @@
             {
                 Helper.DisplayError("\n User not found!");
             }
+        }
 
+
+        private bool ValidBorrow(string email, string bookName, string publishingHouse, int publicationYear)
+        {
+            Inventory inventory = EditionDAL.GetEditionInventory(bookName, publishingHouse, publicationYear);
+            if(inventory.currentStock<=0.1*inventory.initialStock)
+            {
+                Helper.DisplayError("\n There are no books available for borrow.");
+                return false;
+            }
+
+            int NMC = Helper.GetConfigData()["NMC"];
+            int PER = Helper.GetConfigData()["PER"];
+            List<Borrow> borrows = BorrowDAL.GetBorrowsForUser(email);
+
+            borrows.RemoveAll(d => d.EndDate < DateTime.Today);
+
+            if(borrows.Count>=NMC)
+            {
+                Borrow firstBorrow = borrows[borrows.Count - NMC];
+                Borrow lastBorrow = borrows[borrows.Count - 1];
+
+
+
+                if(DateTime.Today >= lastBorrow.StartDate && DateTime.Today < firstBorrow.StartDate.AddDays(PER*7))
+                {
+                    Helper.DisplayError("\n You can't borrow another book. Come again on " + firstBorrow.StartDate.AddDays(PER * 7));
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

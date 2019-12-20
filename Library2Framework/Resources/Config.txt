@@ -1,5 +1,5 @@
 ﻿DOM=5
-NMC=5
+NMC=4
 PER=1
 C=2
 D=2

@@ -9,21 +9,23 @@
     using Library2Framework.DomainModel;
     using Library2Framework.ServiceLayer;
 
-    public class WorkFlow
+    public class Application
     {
         private EditionServices _editionServices;
         private UserServices _userServices;
         private DomainServices _domainServices;
         private BookServices _bookServices;
+        private BorrowServices _borrowServices;
 
-        private const int Exit = 16;
+        private const int Exit = 17;
 
-        public WorkFlow()
+        public Application()
         {
             _editionServices = new EditionServices();
             _userServices = new UserServices();
             _domainServices = new DomainServices();
             _bookServices = new BookServices();
+            _borrowServices = new BorrowServices();
         }
 
         public void Run()
@@ -123,6 +125,15 @@
                         }
                         ScreenPause();
                         break;
+                    case 16:
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        List<Borrow> borrows = _borrowServices.GetBorrowsForUser();
+                        if (borrows != null)
+                        {
+                            Display(borrows);
+                        }
+                        ScreenPause();
+                        break;
                     case Exit:
                         Console.WriteLine("\n Bye-bye! :)");
                         return;
@@ -156,7 +167,8 @@
             Console.WriteLine("(13) List readers");
             Console.WriteLine("(14) List domains");
             Console.WriteLine("(15) List domains for one book");
-            Console.WriteLine("(16) Exit application");
+            Console.WriteLine("(16) List borrows for one user");
+            Console.WriteLine("(17) Exit application");
             Console.ResetColor();
         }
 
