@@ -35,17 +35,17 @@ namespace Library2Framework.DomainModel
         {
         }
 
-        public Edition(string Name, string PublishingHouseName, int PageNr, string BookType, int PublicationYear, int InitialStock, int BorrowedBooks = 0, int ReadingRoomBooks = 0)
+        public Edition(string name, string publishingHouseName, int pageNr, string bookType, int publicationYear, int initialStock, int borrowedBooks = 0, int readingRoomBooks = 0)
         {
-            this.Name = Name;
-            this.PublishingHouseName = PublishingHouseName;
-            this.PageNr = PageNr;
-            this.PublicationYear = PublicationYear;
-            this.BookType = BookType;
-            this.InitialStock = InitialStock;
-            this.CurrentStock = InitialStock;
-            this.BorrowedBooks = BorrowedBooks;
-            this.ReadingRoomBooks = ReadingRoomBooks;
+            this.Name = name;
+            this.PublishingHouseName = publishingHouseName;
+            this.PageNr = pageNr;
+            this.PublicationYear = publicationYear;
+            this.BookType = bookType;
+            this.InitialStock = initialStock;
+            this.CurrentStock = initialStock;
+            this.BorrowedBooks = borrowedBooks;
+            this.ReadingRoomBooks = readingRoomBooks;
         }
 
         /// <inheritdoc/>

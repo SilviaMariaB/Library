@@ -25,6 +25,16 @@ namespace Library2Framework.DomainModel
 
         public int Period { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Borrow"/> class.
+        /// </summary>
+        /// <param name="bookName">numele cartii.</param>
+        /// <param name="publishingHouseName">numele editurii care a publicat cartea.</param>
+        /// <param name="publicationYear">anul publicarii.</param>
+        /// <param name="start">data de inceput a imprimutului.</param>
+        /// <param name="end">data de final a imprumutului.</param>
+        /// <param name="period">perioada imprumutului.</param>
+        ///
         public Borrow(string bookName, string publishingHouseName, int publicationYear, DateTime start, DateTime end, int period)
         {
             this.BookName = bookName;
