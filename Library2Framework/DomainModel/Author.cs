@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DomainModel
+﻿// <copyright file="Author.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DomainModel
 {
     using System;
     using System.Collections.Generic;
@@ -13,21 +17,23 @@
 
         public string AuthorName { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Author"/> class.
+        /// </summary>
         public Author()
         {
-
         }
-       
-        public Author(string AuthorName, int ID=0)
+
+        public Author(string authorName, int ID = 0)
         {
             this.ID = ID;
-            this.AuthorName = AuthorName;
-
+            this.AuthorName = authorName;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
-            return "\n Author name: " + Helper.FirstCharToUpper(this.AuthorName) ;
+            return "\n Author name: " + Helper.FirstCharToUpper(this.AuthorName);
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.Utils
+﻿// <copyright file="Application.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.Utils
 {
     using System;
     using System.Collections.Generic;
@@ -11,13 +15,13 @@
 
     public class Application
     {
+        private const int Exit = 17;
+
         private EditionServices _editionServices;
         private UserServices _userServices;
         private DomainServices _domainServices;
         private BookServices _bookServices;
         private BorrowServices _borrowServices;
-
-        private const int Exit = 17;
 
         public Application()
         {
@@ -42,7 +46,7 @@
                         _userServices.AddReader();
                         ScreenPause();
                         break;
-                    case 2: 
+                    case 2:
                         Console.ForegroundColor = ConsoleColor.Blue;
                         _userServices.AddLibrarian();
                         ScreenPause();
@@ -67,7 +71,7 @@
                         _editionServices.AddAuthorForEdition();
                         ScreenPause();
                         break;
-                    case 7: //add new domain for one book
+                    case 7:
                         Console.ForegroundColor = ConsoleColor.Red;
                         _bookServices.AddDomainForBook();
                         ScreenPause();
@@ -96,6 +100,7 @@
                         {
                             Display(authors);
                         }
+
                         ScreenPause();
                         break;
                     case 12:
@@ -123,6 +128,7 @@
                         {
                             Display(domainsForBook);
                         }
+
                         ScreenPause();
                         break;
                     case 16:
@@ -132,6 +138,7 @@
                         {
                             Display(borrows);
                         }
+
                         ScreenPause();
                         break;
                     case Exit:
@@ -203,7 +210,6 @@
                     Console.WriteLine("\n" + (list.IndexOf(obj) + 1) + ". " + obj);
                 }
             }
-            
         }
     }
 }

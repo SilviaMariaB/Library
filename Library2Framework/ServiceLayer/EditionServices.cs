@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.ServiceLayer
+﻿// <copyright file="EditionServices.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
@@ -12,11 +16,11 @@
 
     public class EditionServices
     {
-        public List<Author> GetAuthorsForEdition() 
+        public List<Author> GetAuthorsForEdition()
         {
             string bookName = Helper.ReadString("Introduce the name of the book:");
 
-            while(!BookDAL.CheckBook(bookName))
+            while (!BookDAL.CheckBook(bookName))
             {
                 Helper.DisplayError("\n Wrong book name!");
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -24,11 +28,11 @@
             }
 
             List<Author> authors = null;
-            
+
             int PublicationYear = Helper.ReadYear("Introduce the year of publishing:");
             string PublishingHouseName = Helper.ReadString("Introduce publishing house name:");
 
-            while(!EditionDAL.CheckEdition(bookName, PublishingHouseName, PublicationYear))
+            while (!EditionDAL.CheckEdition(bookName, PublishingHouseName, PublicationYear))
             {
                 Helper.DisplayError("\n Edition doesn't exist!");
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -37,25 +41,23 @@
             }
 
             authors = AuthorDAL.GetAuthorsForBook(bookName, PublicationYear, PublishingHouseName);
-          
             return authors;
         }
 
         public void AddEdition()
         {
             string bookName = Helper.ReadString("\nInsert book name: ");
-
             string domain;
-            
+
             if (BookDAL.CheckBook(bookName))
             {
-                domain = "";
+                domain = string.Empty;
                 ContinueAddEdition(bookName, domain);
             }
             else
             {
                 domain = Helper.ReadString("\nIntroduce domain name: ");
-                while(!DomainDAL.CheckDomain(domain))
+                while (!DomainDAL.CheckDomain(domain))
                 {
                     Helper.DisplayError("\n Inserted domain doesn't exist!");
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -66,12 +68,138 @@
             }
         }
 
+        public void AddAuthorForEdition()
+        {
+            string bookName = Helper.ReadString("Introduce the name of the book: ");
+
+            while (!BookDAL.CheckBook(bookName))
+            {
+                Helper.DisplayError("\n Wrong book name!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                bookName = Helper.ReadString("\nReintroduce the name of the book: ");
+            }
+
+            int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
+            string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
+
+            while (!EditionDAL.CheckEdition(bookName, publishingHouseName, publicationYear))
+            {
+                Helper.DisplayError("\n Edition doesn't exist!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
+                publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
+            }
+
+            string authorName = Helper.ReadString("Introduce the name of the author: ");
+
+            Author author = new Author(authorName);
+
+            Edition edition = new Edition()
+            {
+                PublicationYear = publicationYear,
+                PublishingHouseName = publishingHouseName,
+                Name = bookName,
+            };
+            EditionDAL.AddAuthorForEdition(author, edition);
+            Console.WriteLine("\n Operation completed succesfully!");
+        }
+
+        public void BorrowEdition()
+        {
+            string email = Helper.ReadString("Introduce user's email: ");
+
+            while (!UserDAL.CheckUser(email))
+            {
+                Helper.DisplayError("\n User not found!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                email = Helper.ReadString("\nReintroduce email: ");
+            }
+
+            string bookName = Helper.ReadString("Introduce the name of the book: ");
+
+            while (!BookDAL.CheckBook(bookName))
+            {
+                Helper.DisplayError("\n Book not found!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                bookName = Helper.ReadString("Introduce the name of the book: ");
+            }
+
+            int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
+            string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
+
+            while (!EditionDAL.CheckEdition(bookName, publishingHouseName, publicationYear))
+            {
+                Helper.DisplayError("\n Edition not found!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
+                publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
+            }
+
+            string authorName = Helper.ReadString("Introduce the name of the author: ");
+            Author author = new Author(authorName);
+
+            while (!AuthorDAL.CheckAuthor(author))
+            {
+                Helper.DisplayError("\n Wrong author!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                authorName = Helper.ReadString("Introduce the name of the author: ");
+                author = new Author(authorName);
+            }
+
+            if (ValidBorrow(email, bookName, publishingHouseName, publicationYear))
+            {
+                Edition edition = new Edition()
+                {
+                    PublicationYear = publicationYear,
+                    PublishingHouseName = publishingHouseName,
+                    Name = bookName,
+                };
+
+                int daysLeft = Helper.ReadInteger("Introduce the number of days of the borrow: ");
+
+                DateTime endDate = DateTime.Now.AddDays(daysLeft);
+
+                EditionDAL.BorrowEdition(email, edition, author, endDate);
+                Console.WriteLine("\n Operation completed succesfully!");
+            }
+        }
+
+        private bool ValidBorrow(string email, string bookName, string publishingHouse, int publicationYear)
+        {
+            Inventory inventory = EditionDAL.GetEditionInventory(bookName, publishingHouse, publicationYear);
+            if (inventory.CurrentStock <= 0.1 * inventory.InitialStock)
+            {
+                Helper.DisplayError("\n There are no books available for borrow.");
+                return false;
+            }
+
+            int NMC = Helper.GetConfigData()["NMC"];
+            int PER = Helper.GetConfigData()["PER"];
+            List<Borrow> borrows = BorrowDAL.GetBorrowsForUser(email);
+
+            borrows.RemoveAll(d => d.EndDate < DateTime.Today);
+
+            if (borrows.Count >= NMC)
+            {
+                Borrow firstBorrow = borrows[borrows.Count - NMC];
+                Borrow lastBorrow = borrows[borrows.Count - 1];
+
+                if (DateTime.Today >= lastBorrow.StartDate && DateTime.Today < firstBorrow.StartDate.AddDays(PER * 7))
+                {
+                    Helper.DisplayError("\n You can't borrow another book. Come again on " + firstBorrow.StartDate.AddDays(PER * 7));
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void ContinueAddEdition(string bookName, string domain)
         {
             string publishingHouse = Helper.ReadString("\nInsert publishing house: ");
             int publicationYear = Helper.ReadYear("\nInsert publication year: ");
 
-            while(EditionDAL.CheckEdition(bookName, publishingHouse, publicationYear))
+            while (EditionDAL.CheckEdition(bookName, publishingHouse, publicationYear))
             {
                 Helper.DisplayError("\n Edition already exist!");
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -90,134 +218,6 @@
             EditionDAL.AddEdition(edition, author, domain);
 
             Console.WriteLine("\n Operation completed succesfully!");
-        }
-
-        public void AddAuthorForEdition()
-        {
-            string bookName = Helper.ReadString("Introduce the name of the book: ");
-
-            while(!BookDAL.CheckBook(bookName))
-            {
-                Helper.DisplayError("\n Wrong book name!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                bookName = Helper.ReadString("\nReintroduce the name of the book: ");
-            }
-
-           
-            int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
-            string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
-
-            while(!EditionDAL.CheckEdition(bookName, publishingHouseName, publicationYear))
-            {
-                Helper.DisplayError("\n Edition doesn't exist!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
-                publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
-            }
-           
-            string authorName = Helper.ReadString("Introduce the name of the author: ");
-
-            Author author = new Author(authorName);
-
-            Edition edition = new Edition()
-            {
-                PublicationYear = publicationYear,
-                PublishingHouseName = publishingHouseName,
-                Name = bookName
-            };
-            EditionDAL.AddAuthorForEdition(author, edition);
-            Console.WriteLine("\n Operation completed succesfully!");
-        }
-
-        public void BorrowEdition()
-        {
-            string email = Helper.ReadString("Introduce user's email: ");
-
-            while(!UserDAL.CheckUser(email))
-            {
-                Helper.DisplayError("\n User not found!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                email = Helper.ReadString("\nReintroduce email: ");
-            }
-
-            string bookName = Helper.ReadString("Introduce the name of the book: ");
-
-            while(!BookDAL.CheckBook(bookName))
-            {
-                Helper.DisplayError("\n Book not found!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                bookName = Helper.ReadString("Introduce the name of the book: ");
-            }
-        
-            int publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
-            string publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
-
-            while(!EditionDAL.CheckEdition(bookName, publishingHouseName, publicationYear))
-            {
-                Helper.DisplayError("\n Edition not found!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                publicationYear = Helper.ReadYear("Introduce the year of publishing: ");
-                publishingHouseName = Helper.ReadString("Introduce publishing house name: ");
-            }
-
-            string authorName = Helper.ReadString("Introduce the name of the author: ");
-            Author author = new Author(authorName);
-
-            while (!AuthorDAL.CheckAuthor(author))
-            {
-                Helper.DisplayError("\n Wrong author!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                authorName = Helper.ReadString("Introduce the name of the author: ");
-                author = new Author(authorName);
-            }
-            
-            if (ValidBorrow(email, bookName, publishingHouseName, publicationYear))
-            {
-                Edition edition = new Edition()
-                {
-                    PublicationYear = publicationYear,
-                    PublishingHouseName = publishingHouseName,
-                    Name = bookName
-                };
-
-                int daysLeft = Helper.ReadInteger("Introduce the number of days of the borrow: ");
-
-                DateTime endDate = DateTime.Now.AddDays(daysLeft);
-
-                EditionDAL.BorrowEdition(email, edition, author, endDate);
-                Console.WriteLine("\n Operation completed succesfully!");
-            } 
-        }
-
-        private bool ValidBorrow(string email, string bookName, string publishingHouse, int publicationYear)
-        {
-            Inventory inventory = EditionDAL.GetEditionInventory(bookName, publishingHouse, publicationYear);
-            if(inventory.currentStock<=0.1*inventory.initialStock)
-            {
-                Helper.DisplayError("\n There are no books available for borrow.");
-                return false;
-            }
-
-            int NMC = Helper.GetConfigData()["NMC"];
-            int PER = Helper.GetConfigData()["PER"];
-            List<Borrow> borrows = BorrowDAL.GetBorrowsForUser(email);
-
-            borrows.RemoveAll(d => d.EndDate < DateTime.Today);
-
-            if(borrows.Count>=NMC)
-            {
-                Borrow firstBorrow = borrows[borrows.Count - NMC];
-                Borrow lastBorrow = borrows[borrows.Count - 1];
-
-
-
-                if(DateTime.Today >= lastBorrow.StartDate && DateTime.Today < firstBorrow.StartDate.AddDays(PER*7))
-                {
-                    Helper.DisplayError("\n You can't borrow another book. Come again on " + firstBorrow.StartDate.AddDays(PER * 7));
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

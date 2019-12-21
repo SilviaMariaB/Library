@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DataMapper
+﻿// <copyright file="EditionDAL.cs" company="Transilvania University of Brasov">
+// Copyright (c) Brassoi Silvia Maria. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DataMapper
 {
     using System;
     using System.Collections.Generic;
@@ -12,30 +16,19 @@
 
     public class EditionDAL
     {
-        public struct Inventory
-        {
-            public int currentStock;
-            public int initialStock;
-        }
-
         public static List<Edition> GetEditionsAlphabetical()
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("GetBooksAlphabetical", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-                //deschidem conexiunea la BD        
+
                 con.Open();
 
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
                 List<Edition> result = new List<Edition>();
 
-                //apelam efectiv procedura si depunem rezultatul in variabila reader
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -50,10 +43,10 @@
                             InitialStock = reader.GetInt32(5),
                             CurrentStock = reader.GetInt32(6),
                             BorrowedBooks = reader.GetInt32(7),
-                            ReadingRoomBooks = reader.GetInt32(8)
-                        }
-                 );
+                            ReadingRoomBooks = reader.GetInt32(8),
+                        });
                 }
+
                 reader.Close();
                 return result;
             }
@@ -63,20 +56,15 @@
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("GetBorrowedBooksAlphabetical", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-                //deschidem conexiunea la BD        
+
                 con.Open();
 
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
                 List<Edition> result = new List<Edition>();
 
-                //apelam efectiv procedura si depunem rezultatul in variabila reader
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -90,24 +78,23 @@
                             InitialStock = reader.GetInt32(4),
                             CurrentStock = reader.GetInt32(5),
                             BorrowedBooks = reader.GetInt32(6),
-                            ReadingRoomBooks = reader.GetInt32(7)
-                        }
-                 );
+                            ReadingRoomBooks = reader.GetInt32(7),
+                        });
                 }
+
                 reader.Close();
                 return result;
             }
         }
 
-        public static Boolean CheckEdition(string bookName, string publishingHouse, int publicationYear)
+        public static bool CheckEdition(string bookName, string publishingHouse, int publicationYear)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
                 SqlCommand cmd = new SqlCommand("GetIdForEdition", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-
 
                 SqlParameter bookNameSQL = new SqlParameter("@BookName", bookName);
                 SqlParameter publishingHouseSQL = new SqlParameter("@PublishingHouse", publishingHouse);
@@ -123,23 +110,20 @@
                 while (reader.Read())
                 {
                     counter++;
-
                 }
+
                 reader.Close();
                 return counter == 0 ? false : true;
             }
         }
-        
-        public static void AddEdition(Edition edition,Author author, string domain)
+
+        public static void AddEdition(Edition edition, Author author, string domain)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("AddEdition", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
                 SqlParameter bookName = new SqlParameter("@Name", edition.Name);
@@ -159,7 +143,7 @@
                 cmd.Parameters.Add(bookType);
                 cmd.Parameters.Add(publicationYear);
                 cmd.Parameters.Add(initialStock);
-       
+
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -169,46 +153,36 @@
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
+                // creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
+                // si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("AddAuthorForBook", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
                 SqlParameter bookName = new SqlParameter("@BookName", edition.Name);
                 SqlParameter publicationYear = new SqlParameter("@PublicationYear", edition.PublicationYear);
                 SqlParameter publishingHouse = new SqlParameter("@PublishingHouseName", edition.PublishingHouseName);
                 SqlParameter authorName = new SqlParameter("@AuthorName", author.AuthorName);
-                
 
                 cmd.Parameters.Add(bookName);
                 cmd.Parameters.Add(publicationYear);
                 cmd.Parameters.Add(publishingHouse);
                 cmd.Parameters.Add(authorName);
-                
 
-                //deschidem conexiunea la BD        
                 con.Open();
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
 
                 cmd.ExecuteNonQuery();
-
             }
-
         }
 
-        public static void BorrowEdition(string email,Edition edition, Author author, DateTime endDate)
+        public static void BorrowEdition(string email, Edition edition, Author author, DateTime endDate)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("AddBorrowedBook", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
                 SqlParameter emailSql = new SqlParameter("@Email", email);
@@ -225,14 +199,10 @@
                 cmd.Parameters.Add(publicationYearSQL);
                 cmd.Parameters.Add(endDateSQL);
 
-                //deschidem conexiunea la BD        
                 con.Open();
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
 
                 cmd.ExecuteNonQuery();
-
             }
-
         }
 
         public static Inventory GetEditionInventory(string bookName, string publishingHouse, int publicationYear)
@@ -251,21 +221,28 @@
                 cmd.Parameters.Add(bookNameSQL);
                 cmd.Parameters.Add(publishingHouseSQL);
                 cmd.Parameters.Add(publicationYearSQL);
-                
+
                 con.Open();
-                Inventory inventory = new Inventory();
+
+                // new inventory();
+                Inventory inventory = default(Inventory);
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    inventory.currentStock = reader.GetInt32(0);
-                    inventory.initialStock = reader.GetInt32(1);
+                    inventory.CurrentStock = reader.GetInt32(0);
+                    inventory.InitialStock = reader.GetInt32(1);
                 }
 
                 reader.Close();
                 return inventory;
             }
+        }
 
+        public struct Inventory
+        {
+            public int CurrentStock;
+            public int InitialStock;
         }
     }
 }

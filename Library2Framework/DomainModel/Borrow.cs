@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DomainModel
+﻿// <copyright file="Borrow.cs" company="Transilvania University of Brasov">
+// Copyright (c) Brassoi Silvia Maria. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DomainModel
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +13,6 @@
 
     public class Borrow
     {
-
         public string BookName { get; set; }
 
         public string PublishingHouseName { get; set; }
@@ -22,8 +25,7 @@
 
         public int Period { get; set; }
 
-        public Borrow(string bookName,string publishingHouseName,int publicationYear,
-            DateTime start, DateTime end, int period)
+        public Borrow(string bookName, string publishingHouseName, int publicationYear, DateTime start, DateTime end, int period)
         {
             this.BookName = bookName;
             this.PublishingHouseName = publishingHouseName;
@@ -33,10 +35,14 @@
             this.Period = period;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Borrow"/> class.
+        /// </summary>
         public Borrow()
         {
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return "\n Book name: " + Helper.FirstCharToUpper(BookName) +

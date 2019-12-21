@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DomainModel
+﻿// <copyright file="Domain.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DomainModel
 {
     using System;
     using System.Collections.Generic;
@@ -15,11 +19,17 @@
 
         public string ParentName { get; set; }
 
-        public Domain(string DomainName, string ParentName, int ID =0)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Domain"/> class.
+        /// </summary>
+        /// <param name="DomainName">Numele domeniului.</param>
+        /// <param name="ParentName">Numele parintelui.</param>
+        /// <param name="ID">Id ul.</param>
+        public Domain(string DomainName, string ParentName, int ID = 0)
         {
             this.ID = ID;
             this.DomainName = DomainName;
-            this.ParentName = ParentName;           
+            this.ParentName = ParentName;
         }
 
         public Domain(string DomainName, int ID = 0)
@@ -27,13 +37,15 @@
             this.ID = ID;
             this.DomainName = DomainName;
         }
+
         public Domain()
         {
-
         }
+
+        /// <inheritdoc/>
         public override string ToString()
         {
-            if(this.ParentName != null)
+            if (this.ParentName != null)
             {
                 return "\n Domain name: " + Helper.FirstCharToUpper(this.DomainName) +
                  "\n Parent name: " + Helper.FirstCharToUpper(this.ParentName);

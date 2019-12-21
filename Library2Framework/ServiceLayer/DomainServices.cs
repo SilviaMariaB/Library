@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.ServiceLayer
+﻿// <copyright file="DomainServices.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +12,7 @@
     using Library2Framework.DataMapper;
     using Library2Framework.DomainModel;
 
-    class DomainServices
+    public class DomainServices
     {
         public void AddSubdomain()
         {
@@ -28,11 +32,12 @@
                 Console.ForegroundColor = ConsoleColor.DarkBlue;
                 parentName = Helper.ReadString("\n Reintroduce domain(parent) name: ");
             }
+
             Domain domain = new Domain(domainName, parentName);
             DomainDAL.AddSubdomain(domain);
             Console.WriteLine("\n Operation completed succesfully!");
-
         }
+
         public void AddDomain()
         {
             string domainName = Helper.ReadString("\n Insert domain name: ");

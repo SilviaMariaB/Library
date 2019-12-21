@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.ServiceLayer
+﻿// <copyright file="Helper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
@@ -7,9 +11,8 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class Helper
+    public class Helper
     {
-
         public static void DisplayError(string error)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -22,12 +25,13 @@
             Console.Write(message);
             string str = Console.ReadLine();
 
-            while(String.IsNullOrEmpty(str))
+            while (string.IsNullOrEmpty(str))
             {
                 Console.WriteLine(" Empty input!");
                 Console.Write(message);
                 str = Console.ReadLine();
             }
+
             str = str.ToLower();
             str = str.Trim();
             return str;
@@ -35,7 +39,6 @@
 
         public static int ReadYear(string message)
         {
-
             string str = null;
 
             bool ok = false;
@@ -44,17 +47,18 @@
             {
                 Console.Write(message);
                 str = Console.ReadLine();
-                ok = Int32.TryParse(str, out value);
-                if (value < 868 || value > DateTime.Now.Year) ok = false;
+                ok = int.TryParse(str, out value);
+                if (value < 868 || value > DateTime.Now.Year)
+                {
+                    ok = false;
+                }
             }
-
 
             return value;
         }
 
         public static int ReadInteger(string message)
         {
-
             string str = null;
 
             bool ok = false;
@@ -63,30 +67,33 @@
             {
                 Console.Write(message);
                 str = Console.ReadLine();
-                ok = Int32.TryParse(str, out value);
-                if (value < 0) ok = false;
+                ok = int.TryParse(str, out value);
+                if (value < 0)
+                {
+                    ok = false;
+                }
             }
-
 
             return value;
         }
 
-      
         public static Dictionary<string, int> GetConfigData()
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
-            using (StreamReader reader = File.OpenText("E:/BIBLIOTECA/Library2Framework/Library2Framework/Resources/Config.txt")) //bloc de resurse
+
+            // bloc de resurse
+            using (StreamReader reader = File.OpenText("E:/BIBLIOTECA/Library2Framework/Library2Framework/Resources/Config.txt"))
             {
                 string line = string.Empty;
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] array = line.Split('=');
-                    //verifica daca poate sa faca conversia de la string la int si o face in value
-                    if (Int32.TryParse(array[1], out int value))
+
+                    // verifica daca poate sa faca conversia de la string la int si o face in value
+                    if (int.TryParse(array[1], out int value))
                     {
                         data.Add(array[0], value);
                     }
-
                 }
             }
 

@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DataMapper
+﻿// <copyright file="AuthorDAL.cs" company="Transilvania University of Brasov">
+// Copyright (c) Brassoi Silvia Maria. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DataMapper
 {
     using System;
     using System.Collections.Generic;

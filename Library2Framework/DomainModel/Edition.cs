@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DomainModel
+﻿// <copyright file="Edition.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DomainModel
 {
     using System;
     using System.Collections.Generic;
@@ -29,11 +33,9 @@
 
         public Edition()
         {
-
         }
 
-        public Edition(string Name, string PublishingHouseName, int PageNr, string BookType,
-            int PublicationYear, int InitialStock, int BorrowedBooks=0, int ReadingRoomBooks=0)
+        public Edition(string Name, string PublishingHouseName, int PageNr, string BookType, int PublicationYear, int InitialStock, int BorrowedBooks = 0, int ReadingRoomBooks = 0)
         {
             this.Name = Name;
             this.PublishingHouseName = PublishingHouseName;
@@ -46,17 +48,18 @@
             this.ReadingRoomBooks = ReadingRoomBooks;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
-            return "\n Book name: " + Name +
+            return "\n Book name: " + this.Name +
                 "\n Publishing house name: " + Helper.FirstCharToUpper(this.PublishingHouseName) +
                 "\n Number of pages: " + this.PageNr +
                 "\n Publication year: " + this.PublicationYear +
-                "\n Book type: " + Helper.FirstCharToUpper(BookType) +
+                "\n Book type: " + Helper.FirstCharToUpper(this.BookType) +
                 "\n Initial stock: " + this.InitialStock +
                 "\n Current stock: " + this.CurrentStock +
                 "\n Borrowed books: " + this.BorrowedBooks +
-                "\n Readingroom books: " + this.ReadingRoomBooks ;
+                "\n Readingroom books: " + this.ReadingRoomBooks;
         }
     }
 }

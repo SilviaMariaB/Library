@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DomainModel
+﻿// <copyright file="EditionAuthor.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DomainModel
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +22,7 @@
             this.AuthorId = AuthorId;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return "( Edition id: " + this.EditionId + " author id: " + this.AuthorId + ")";

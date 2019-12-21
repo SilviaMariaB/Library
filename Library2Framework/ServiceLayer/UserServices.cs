@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.ServiceLayer
+﻿// <copyright file="UserServices.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +22,7 @@
             string phone = Helper.ReadString("\nInsert phone number: ");
             string email = Helper.ReadString("\nInsert email:");
 
-            while(UserDAL.CheckUser(email))
+            while (UserDAL.CheckUser(email))
             {
                 Helper.DisplayError("Email address already used!");
                 Console.ForegroundColor = ConsoleColor.Blue;
@@ -36,7 +40,7 @@
                 switch (choice)
                 {
                     case 1:
-                        UserDAL.AddLibrarian(user,true);
+                        UserDAL.AddLibrarian(user, true);
                         ok = false;
                         break;
                     case 2:
@@ -47,8 +51,8 @@
                         ok = true;
                         break;
                 }
-
-            } while (ok);
+            }
+            while (ok);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("\n Operation completed succesfully!");
         }
@@ -61,7 +65,7 @@
             string phone = Helper.ReadString("\nInsert phone number: ");
             string email = Helper.ReadString("\nInsert email:");
 
-            while(UserDAL.CheckUser(email))
+            while (UserDAL.CheckUser(email))
             {
                 Helper.DisplayError("Email address already used!");
                 Console.ForegroundColor = ConsoleColor.Blue;

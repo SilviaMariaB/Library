@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DataMapper
+﻿// <copyright file="DomainDAL.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DataMapper
 {
     using System;
     using System.Collections.Generic;
@@ -15,20 +19,20 @@
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
+                // creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
+                // si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("GetDomains", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-                //deschidem conexiunea la BD        
+
+                // deschidem conexiunea la BD
                 con.Open();
 
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
+                // creem o colectie in care sa memoram rezultatele procedurii stocate
                 List<Domain> result = new List<Domain>();
 
-                //apelam efectiv procedura si depunem rezultatul in variabila reader
+                // apelam efectiv procedura si depunem rezultatul in variabila reader
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -37,43 +41,33 @@
                         {
                             ID = reader.GetInt32(0),
                             DomainName = reader.GetString(1),
-                            ParentName = reader.IsDBNull(2) == true ? "NULL" : reader.GetString(2)
-                        }
-                 );
+                            ParentName = reader.IsDBNull(2) == true ? "NULL" : reader.GetString(2),
+                        });
                 }
+
                 reader.Close();
                 return result;
             }
-
         }
 
         public static void AddSubdomain(Domain domain)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("AddSubdomain", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-
 
                 SqlParameter domainName = new SqlParameter("@Name", domain.DomainName);
                 SqlParameter parentName = new SqlParameter("@Parent", domain.ParentName);
 
-
                 cmd.Parameters.Add(domainName);
                 cmd.Parameters.Add(parentName);
 
-
-                //deschidem conexiunea la BD        
                 con.Open();
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
 
                 cmd.ExecuteNonQuery();
-
             }
         }
 
@@ -81,31 +75,22 @@
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("AddDomain", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-
 
                 SqlParameter domainName = new SqlParameter("@Name", domain.DomainName);
 
-
                 cmd.Parameters.Add(domainName);
 
-
-                //deschidem conexiunea la BD        
                 con.Open();
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
 
                 cmd.ExecuteNonQuery();
-
             }
         }
 
-        public static Boolean CheckDomain(string domainName)
+        public static bool CheckDomain(string domainName)
         {
             using (SqlConnection con = DBConnection.Connection)
             {
@@ -113,7 +98,6 @@
                 {
                     CommandType = CommandType.StoredProcedure
                 };
-
 
                 SqlParameter domainNameSQL = new SqlParameter("@DomainName", domainName);
 
@@ -125,8 +109,8 @@
                 while (reader.Read())
                 {
                     counter++;
-                 
                 }
+
                 reader.Close();
                 return counter == 0 ? false : true;
             }
@@ -136,43 +120,33 @@
         {
             using (SqlConnection con = DBConnection.Connection)
             {
-
-                //creem o variabila cmd unde transmitem numele procedurii stocate si conexiunea la BD
-                //si o setam ca fiind de tip stored procedure
                 SqlCommand cmd = new SqlCommand("GetParentForDomain", con)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
-
 
                 SqlParameter childNameSql = new SqlParameter("@childName", childName);
 
-
                 cmd.Parameters.Add(childNameSql);
 
-
-                //deschidem conexiunea la BD        
                 con.Open();
-                //creem o colectie in care sa memoram rezultatele procedurii stocate
 
-                string result = "";
+                string result = string.Empty;
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     result = reader.GetString(0);
                 }
+
                 reader.Close();
 
-                if (result.Equals(""))
+                if (result.Equals(string.Empty))
                 {
                     return null;
                 }
-                return result;
 
+                return result;
             }
         }
-
     }
-
-
 }

@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.ServiceLayer
+﻿// <copyright file="BookServices.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +14,6 @@
 
     public class BookServices
     {
-        
         public List<Domain> GetDomainsForBook()
         {
             string bookName = Helper.ReadString("Introduce the name of the book:");
@@ -28,7 +31,7 @@
 
             return authors;
         }
-      
+
         public void AddDomainForBook()
         {
             string bookName = Helper.ReadString("Introduce the name of the book: ");
@@ -41,7 +44,8 @@
             }
 
             string newDomainName = Helper.ReadString("Introduce the new domain: ");
-            //aici verific ca noul domeniu sa nu contina deja cartea
+
+            // aici verific ca noul domeniu sa nu contina deja cartea
             bool ok = true;
             foreach (Domain domain in BookDAL.GetDomainsForBook(bookName))
             {
@@ -52,13 +56,11 @@
                 }
             }
 
-
-            while (!DomainDAL.CheckDomain(newDomainName) || !ok || !validDomain(bookName, newDomainName))
+            while (!DomainDAL.CheckDomain(newDomainName) || !ok || !ValidDomain(bookName, newDomainName))
             {
-                if(!validDomain(bookName, newDomainName))
+                if (!ValidDomain(bookName, newDomainName))
                 {
                     Helper.DisplayError("\n The new domain is an ascendent of one of the existing domains of the book!");
-
                 }
                 else
                 {
@@ -78,7 +80,7 @@
                     }
                 }
             }
-            
+
             int size = BookDAL.GetDomainsForBook(bookName).Count;
             int DOM = Helper.GetConfigData()["DOM"];
             if (size < DOM)
@@ -88,14 +90,13 @@
             }
             else
             {
-                Helper.DisplayError("\nA book can belong to " + DOM + " domains. (DOM = " + DOM +" )");
+                Helper.DisplayError("\nA book can belong to " + DOM + " domains. (DOM = " + DOM + " )");
             }
-            
         }
 
-        //functia verifica daca noul domeniu este sau nu intr-o relatie stramos-descendent
-        //cu domeniile actuale ale cartii
-        private bool validDomain(string bookName, string newDomainName)
+        // functia verifica daca noul domeniu este sau nu intr-o relatie stramos-descendent
+        // cu domeniile actuale ale cartii
+        private bool ValidDomain(string bookName, string newDomainName)
         {
             List<Domain> curentDomains = BookDAL.GetDomainsForBook(bookName);
 
@@ -103,13 +104,13 @@
             foreach (Domain domain in curentDomains)
             {
                 HashSet<string> ascendants = GetAscendansForDomain(domain.DomainName);
-                foreach(string ascendant in ascendants)
+                foreach (string ascendant in ascendants)
                 {
                     family.Add(ascendant);
                 }
             }
-            
-            if(family.Contains(newDomainName))
+
+            if (family.Contains(newDomainName))
             {
                 return false;
             }
@@ -124,7 +125,7 @@
             string current = domainName;
             string parent = DomainDAL.GetParentForDomain(domainName);
 
-            while(parent!=null)
+            while (parent != null)
             {
                 ascendants.Add(parent);
                 parent = DomainDAL.GetParentForDomain(parent);
@@ -132,6 +133,5 @@
 
             return ascendants;
         }
-        
     }
 }

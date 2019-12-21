@@ -1,13 +1,17 @@
-﻿using Library2Framework.DataMapper;
-using Library2Framework.DomainModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="BorrowServices.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Library2Framework.ServiceLayer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Library2Framework.DataMapper;
+    using Library2Framework.DomainModel;
+
     public class BorrowServices
     {
         public List<Borrow> GetBorrowsForUser()

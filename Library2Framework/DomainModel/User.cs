@@ -1,4 +1,8 @@
-﻿namespace Library2Framework.DomainModel
+﻿// <copyright file="User.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework.DomainModel
 {
     using System;
     using System.Collections.Generic;
@@ -21,9 +25,9 @@
 
         public string Email { get; set; }
 
-        public Boolean Reader { get; set; }
+        public bool Reader { get; set; }
 
-        public Boolean Librarian { get; set; }
+        public bool Librarian { get; set; }
 
         public User(string FirstName, string LastName)
         {
@@ -45,15 +49,16 @@
         {
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
-            return  "\n First name: " + Helper.FirstCharToUpper(this.FirstName) + 
+            return "\n First name: " + Helper.FirstCharToUpper(this.FirstName) +
                 "\n Last name: " + Helper.FirstCharToUpper(this.LastName) +
-                "\n Address: " + this.Address + 
-                "\n Phone number: " + this.PhoneNumber + 
-                "\n Email: " + this.Email + 
-                "\n Reader: " + this.Reader + 
-                "\n Librarian: " + this.Librarian ;
+                "\n Address: " + this.Address +
+                "\n Phone number: " + this.PhoneNumber +
+                "\n Email: " + this.Email +
+                "\n Reader: " + this.Reader +
+                "\n Librarian: " + this.Librarian;
         }
     }
 }

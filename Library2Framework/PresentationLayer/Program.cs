@@ -1,4 +1,8 @@
-﻿namespace Library2Framework
+﻿// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Library2Framework
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +23,5 @@
             Application wf = new Application();
             wf.Run();
         }
-
     }
-
 }

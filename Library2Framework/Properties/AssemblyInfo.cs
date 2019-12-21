@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -35,9 +39,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-// Configure log4net using the .config file 
+// Configure log4net using the .config file
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
-// This will cause log4net to look for a configuration file 
-// called TestApp.exe.config in the application base 
-// directory (i.e. the directory containing TestApp.exe) 
+
+// This will cause log4net to look for a configuration file
+
+// called TestApp.exe.config in the application base
+
+// directory (i.e. the directory containing TestApp.exe)
+
 // The config file will be watched for changes.
