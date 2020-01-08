@@ -15,6 +15,8 @@ namespace Library2Framework.DataMapper
 
     public class DomainDAL
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(DomainDAL));
+
         public static List<Domain> GetDomains()
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -46,6 +48,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+                log.Info("GetDomains procedure has been called from DomainDAL." );
                 return result;
             }
         }
@@ -69,6 +72,8 @@ namespace Library2Framework.DataMapper
 
                 cmd.ExecuteNonQuery();
             }
+            log.Info("AddSubdomain procedure has been called from DomainDAL." );
+
         }
 
         public static void AddDomain(Domain domain)
@@ -88,6 +93,8 @@ namespace Library2Framework.DataMapper
 
                 cmd.ExecuteNonQuery();
             }
+            log.Info("AddDomain procedure has been called from DomainDAL." );
+
         }
 
         public static bool CheckDomain(string domainName)
@@ -112,6 +119,8 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+            log.Info("GetIdForDomain procedure has been called from DomainDAL." );
+
                 return counter == 0 ? false : true;
             }
         }
@@ -144,6 +153,7 @@ namespace Library2Framework.DataMapper
                 {
                     return null;
                 }
+            log.Info("GetParentForDomain procedure has been called from DomainDAL." );
 
                 return result;
             }

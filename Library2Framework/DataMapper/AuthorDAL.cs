@@ -16,6 +16,8 @@ namespace Library2Framework.DataMapper
 
     public class AuthorDAL
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(AuthorDAL));
+
         public static List<Author> GetAuthorsForBook(string bookName, int publicationYear, string publishingHouseName)
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -54,6 +56,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+                log.Info("GetAuthorsForBook procedure has been called from AuthorDAL." );
                 return result;
             }
         }
@@ -80,6 +83,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+                log.Info("GetIdForAuthor procedure has been called from AuthorDAL." );
                 return counter == 0 ? false : true;
             }
         }

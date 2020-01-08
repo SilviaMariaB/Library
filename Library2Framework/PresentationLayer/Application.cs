@@ -16,6 +16,7 @@ namespace Library2Framework.Utils
     public class Application
     {
         private const int Exit = 17;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Application));
 
         private EditionServices _editionServices;
         private UserServices _userServices;
@@ -45,53 +46,63 @@ namespace Library2Framework.Utils
                         Console.ForegroundColor = ConsoleColor.Blue;
                         _userServices.AddReader();
                         ScreenPause();
+                        log.Info("A new reader has been added.");
                         break;
                     case 2:
                         Console.ForegroundColor = ConsoleColor.Blue;
                         _userServices.AddLibrarian();
                         ScreenPause();
+                        log.Info("A new librarian has been added.");
                         break;
                     case 3:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         _domainServices.AddDomain();
                         ScreenPause();
+                        log.Info("A new domain has been added.");
                         break;
                     case 4:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         _domainServices.AddSubdomain();
                         ScreenPause();
+                        log.Info("A new subdomain has been added.");
                         break;
                     case 5:
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                         _editionServices.AddEdition();
                         ScreenPause();
+                        log.Info("A new edition has been added.");
                         break;
                     case 6:
                         Console.ForegroundColor = ConsoleColor.Red;
                         _editionServices.AddAuthorForEdition();
                         ScreenPause();
+                        log.Info("A new author has been added for an edition.");
                         break;
                     case 7:
                         Console.ForegroundColor = ConsoleColor.Red;
                         _bookServices.AddDomainForBook();
                         ScreenPause();
+                        log.Info("A book has been added in a new domain.");
                         break;
                     case 8:
                         Console.ForegroundColor = ConsoleColor.Red;
                         _editionServices.BorrowEdition();
                         ScreenPause();
+                        log.Info("An edition has been borrowed.");
                         break;
                     case 9:
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        List<Edition> books = EditionDAL.GetEditionsAlphabetical();
+                        List<Edition> books = _editionServices.GetEditionsAlphabetical();
                         Display(books);
                         ScreenPause();
+                        log.Info("All editions have been displayed alphabeticaly.");
                         break;
                     case 10:
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        List<Edition> borrowedBooks = EditionDAL.GetBorrowedEditionsAlphabetical();
+                        List<Edition> borrowedBooks = _editionServices.GetBorrowedEditionsAlphabetical();
                         Display(borrowedBooks);
                         ScreenPause();
+                        log.Info("All borrowed editions have been displayed alphabeticaly.");
                         break;
                     case 11:
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -100,26 +111,29 @@ namespace Library2Framework.Utils
                         {
                             Display(authors);
                         }
-
                         ScreenPause();
+                        log.Info("All authors for an edition have been displayed.");
                         break;
                     case 12:
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        List<User> librarians = UserDAL.GetLibrarians();
+                        List<User> librarians = _userServices.GetLibrarians();
                         Display(librarians);
                         ScreenPause();
+                        log.Info("All librarians have been displayed.");
                         break;
                     case 13:
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        List<User> readers = UserDAL.GetReaders();
+                        List<User> readers = _userServices.GetReaders();
                         Display(readers);
                         ScreenPause();
+                        log.Info("All readers have been displayed.");
                         break;
                     case 14:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
-                        List<Domain> domains = DomainDAL.GetDomains();
+                        List<Domain> domains = _domainServices.GetDomains();
                         Display(domains);
                         ScreenPause();
+                        log.Info("All domains have been displayed.");
                         break;
                     case 15:
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -128,7 +142,7 @@ namespace Library2Framework.Utils
                         {
                             Display(domainsForBook);
                         }
-
+                        log.Info("All domains for one book have been displayed.");
                         ScreenPause();
                         break;
                     case 16:
@@ -138,7 +152,7 @@ namespace Library2Framework.Utils
                         {
                             Display(borrows);
                         }
-
+                        log.Info("All borrowed edition for one user have been displayed.");
                         ScreenPause();
                         break;
                     case Exit:

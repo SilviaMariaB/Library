@@ -102,7 +102,12 @@ namespace Library2Framework.ServiceLayer
 
         public static string FirstCharToUpper(string input)
         {
-            return input.First().ToString().ToUpper() + input.Substring(1);
+            if(input!=null)
+            {
+                return input.First().ToString().ToUpper() + input.Substring(1);
+            }
+
+            return input;
         }
     }
 }

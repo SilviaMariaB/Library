@@ -82,3 +82,22 @@
 2019-12-12 01:12:32,078 [1] DEBUG Library2Framework.Program [(null)] – Inside of the loop (i = 8)
 2019-12-12 01:12:32,078 [1] DEBUG Library2Framework.Program [(null)] – Inside of the loop (i = 9)
 2019-12-12 01:12:32,078 [1] INFO  Library2Framework.Program [(null)] – Exiting application.
+2020-01-08 21:52:45,508 [1] INFO  Library2Framework.Utils.Application [(null)] – A new reader has been added.
+2020-01-08 22:00:21,182 [1] INFO  Library2Framework.Utils.Application [(null)] – All edition have been displayed alphabeticaly.
+2020-01-08 22:05:05,165 [1] INFO  Library2Framework.Utils.Application [(null)] – All edition have been displayed alphabeticaly.
+2020-01-08 22:07:19,186 [1] INFO  Library2Framework.Utils.Application [(null)] – All editions have been displayed alphabeticaly.
+2020-01-08 22:09:36,708 [1] INFO  Library2Framework.Utils.Application [(null)] – All borrowed editions have been displayed alphabeticaly.
+2020-01-08 22:09:40,095 [1] INFO  Library2Framework.Utils.Application [(null)] – All borrowed editions have been displayed alphabeticaly.
+2020-01-08 22:10:52,068 [1] INFO  Library2Framework.Utils.Application [(null)] – All editions have been displayed alphabeticaly.
+2020-01-08 22:32:28,685 [1] INFO  Library2Framework.Utils.Application [(null)] – All editions have been displayed alphabeticaly.
+2020-01-08 22:32:30,363 [1] INFO  Library2Framework.Utils.Application [(null)] – All borrowed editions have been displayed alphabeticaly.
+2020-01-08 22:32:32,000 [1] INFO  Library2Framework.Utils.Application [(null)] – All borrowed editions have been displayed alphabeticaly.
+2020-01-08 22:32:33,026 [1] INFO  Library2Framework.Utils.Application [(null)] – All borrowed editions have been displayed alphabeticaly.
+2020-01-08 22:47:40,843 [1] INFO  Library2Framework.DataMapper.EditionDAL [(null)] – GetBooksAlphabetical procedure has been called from EditionDAL.
+2020-01-08 22:47:41,824 [1] INFO  Library2Framework.Utils.Application [(null)] – All editions have been displayed alphabeticaly.
+2020-01-08 22:47:42,588 [1] INFO  Library2Framework.DataMapper.EditionDAL [(null)] – GetBorrowedBooksAlphabetical procedure has been called from EditionDAL.
+2020-01-08 22:47:42,989 [1] INFO  Library2Framework.Utils.Application [(null)] – All borrowed editions have been displayed alphabeticaly.
+2020-01-08 22:47:44,920 [1] INFO  Library2Framework.DataMapper.UserDAL [(null)] – GetReaders procedure has been called from UserDAL.
+2020-01-08 22:47:45,307 [1] INFO  Library2Framework.Utils.Application [(null)] – All readers have been displayed.
+2020-01-08 22:47:48,677 [1] INFO  Library2Framework.DataMapper.UserDAL [(null)] – GetLibrarians procedure has been called from UserDAL.
+2020-01-08 22:47:49,145 [1] INFO  Library2Framework.Utils.Application [(null)] – All librarians have been displayed.

@@ -76,5 +76,15 @@ namespace Library2Framework.ServiceLayer
             UserDAL.AddReader(user);
             Console.WriteLine("\n Operation completed succesfully!");
         }
+
+        public List<User> GetLibrarians()
+        {
+            return UserDAL.GetLibrarians();
+        }
+        public List<User> GetReaders()
+        {
+            return UserDAL.GetReaders();
+        }
+
     }
 }

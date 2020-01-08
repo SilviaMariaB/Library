@@ -16,6 +16,8 @@ namespace Library2Framework.DataMapper
 
     public class EditionDAL
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(EditionDAL));
+
         public static List<Edition> GetEditionsAlphabetical()
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -48,6 +50,8 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+            log.Info("GetBooksAlphabetical procedure has been called from EditionDAL." );
+
                 return result;
             }
         }
@@ -83,6 +87,8 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+            log.Info("GetBorrowedBooksAlphabetical procedure has been called from EditionDAL." );
+
                 return result;
             }
         }
@@ -113,6 +119,8 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+            log.Info("GetIdForEdition procedure has been called from EditionDAL." );
+
                 return counter == 0 ? false : true;
             }
         }
@@ -147,6 +155,8 @@ namespace Library2Framework.DataMapper
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
+            log.Info("AddEdition procedure has been called from EditionDAL." );
+
         }
 
         public static void AddAuthorForEdition(Author author, Edition edition)
@@ -174,6 +184,8 @@ namespace Library2Framework.DataMapper
 
                 cmd.ExecuteNonQuery();
             }
+            log.Info("AddAuthorForBook procedure has been called from EditionDAL." );
+
         }
 
         public static void BorrowEdition(string email, Edition edition, Author author, DateTime endDate)
@@ -203,6 +215,8 @@ namespace Library2Framework.DataMapper
 
                 cmd.ExecuteNonQuery();
             }
+            log.Info("AddBorrowedBook procedure has been called from EditionDAL." );
+
         }
 
         public static Inventory GetEditionInventory(string bookName, string publishingHouse, int publicationYear)
@@ -235,6 +249,8 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+            log.Info("GetEditionInventory procedure has been called from EditionDAL." );
+
                 return inventory;
             }
         }

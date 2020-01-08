@@ -15,6 +15,8 @@ namespace Library2Framework.DataMapper
 
     public static class BorrowDAL
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(BorrowDAL));
+
         public static List<Borrow> GetBorrowsForUser(string email)
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -47,6 +49,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
+                log.Info("GetBorrowsForUser procedure has been called from BorrowDAL." );
                 return result;
             }
         }

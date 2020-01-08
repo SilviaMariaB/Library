@@ -16,6 +16,16 @@ namespace Library2Framework.ServiceLayer
 
     public class EditionServices
     {
+        public List<Edition> GetEditionsAlphabetical()
+        {
+            return EditionDAL.GetEditionsAlphabetical();
+        }
+
+        public List<Edition> GetBorrowedEditionsAlphabetical()
+        {
+            return EditionDAL.GetBorrowedEditionsAlphabetical();
+        }
+
         public List<Author> GetAuthorsForEdition()
         {
             string bookName = Helper.ReadString("Introduce the name of the book:");
