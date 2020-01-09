@@ -18,6 +18,7 @@ namespace Library2Framework.ServiceLayer
         {
             return DomainDAL.GetDomains();
         }
+
         public void AddSubdomain()
         {
             string domainName = Helper.ReadString("\n Insert subdomain name: ");

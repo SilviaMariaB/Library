@@ -49,7 +49,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                log.Info("GetBorrowsForUser procedure has been called from BorrowDAL." );
+                log.Info("GetBorrowsForUser procedure has been called from BorrowDAL.");
                 return result;
             }
         }

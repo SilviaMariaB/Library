@@ -111,6 +111,7 @@ namespace Library2Framework.Utils
                         {
                             Display(authors);
                         }
+
                         ScreenPause();
                         log.Info("All authors for an edition have been displayed.");
                         break;
@@ -142,6 +143,7 @@ namespace Library2Framework.Utils
                         {
                             Display(domainsForBook);
                         }
+
                         log.Info("All domains for one book have been displayed.");
                         ScreenPause();
                         break;
@@ -152,6 +154,7 @@ namespace Library2Framework.Utils
                         {
                             Display(borrows);
                         }
+
                         log.Info("All borrowed edition for one user have been displayed.");
                         ScreenPause();
                         break;

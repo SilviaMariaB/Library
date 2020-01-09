@@ -37,12 +37,12 @@ namespace Library2Framework.DomainModel
         ///
         public Borrow(string bookName, string publishingHouseName, int publicationYear, DateTime start, DateTime end, int period)
         {
-            this.BookName = bookName;
-            this.PublishingHouseName = publishingHouseName;
-            this.PublicationYear = publicationYear;
-            this.StartDate = start;
-            this.EndDate = end;
-            this.Period = period;
+            BookName = bookName;
+            PublishingHouseName = publishingHouseName;
+            PublicationYear = publicationYear;
+            StartDate = start;
+            EndDate = end;
+            Period = period;
         }
 
         /// <summary>

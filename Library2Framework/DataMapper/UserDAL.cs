@@ -17,7 +17,7 @@ namespace Library2Framework.DataMapper
     public class UserDAL
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(UserDAL));
-        
+
         public static List<User> GetLibrarians()
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -49,7 +49,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                    log.Info("GetLibrarians procedure has been called from UserDAL." );
+                log.Info("GetLibrarians procedure has been called from UserDAL.");
                 return result;
             }
         }
@@ -85,7 +85,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                    log.Info("GetReaders procedure has been called from UserDAL." );
+                log.Info("GetReaders procedure has been called from UserDAL.");
                 return result;
             }
         }
@@ -117,7 +117,8 @@ namespace Library2Framework.DataMapper
 
                 cmd.ExecuteNonQuery();
             }
-                log.Info("AddLibrarian procedure has been called from UserDAL." );
+
+            log.Info("AddLibrarian procedure has been called from UserDAL.");
         }
 
         public static void AddReader(User reader)
@@ -145,7 +146,8 @@ namespace Library2Framework.DataMapper
 
                 cmd.ExecuteNonQuery();
             }
-                log.Info("AddReader procedure has been called from UserDAL." );
+
+            log.Info("AddReader procedure has been called from UserDAL.");
         }
 
         public static bool CheckUser(string email)
@@ -170,7 +172,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                    log.Info("GetIdForUser procedure has been called from UserDAL." );
+                log.Info("GetIdForUser procedure has been called from UserDAL.");
                 return counter == 0 ? false : true;
             }
         }

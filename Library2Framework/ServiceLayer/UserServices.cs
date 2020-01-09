@@ -81,10 +81,10 @@ namespace Library2Framework.ServiceLayer
         {
             return UserDAL.GetLibrarians();
         }
+
         public List<User> GetReaders()
         {
             return UserDAL.GetReaders();
         }
-
     }
 }

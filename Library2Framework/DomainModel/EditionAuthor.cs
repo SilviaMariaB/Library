@@ -16,10 +16,10 @@ namespace Library2Framework.DomainModel
 
         public int AuthorId { get; set; }
 
-        public EditionAuthor(int EditionId, int AuthorId)
+        public EditionAuthor(int editionId, int authorId)
         {
-            this.EditionId = EditionId;
-            this.AuthorId = AuthorId;
+            this.EditionId = editionId;
+            this.AuthorId = authorId;
         }
 
         /// <inheritdoc/>

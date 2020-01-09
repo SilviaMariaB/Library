@@ -45,7 +45,7 @@ namespace Library2Framework.DomainModel
         /// <inheritdoc/>
         public override string ToString()
         {
-            if (this.ParentName != null)
+            if (ParentName != null)
             {
                 return "\n Domain name: " + Helper.FirstCharToUpper(this.DomainName) +
                  "\n Parent name: " + Helper.FirstCharToUpper(this.ParentName);

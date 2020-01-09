@@ -90,7 +90,7 @@ namespace Library2Framework.ServiceLayer
             }
             else
             {
-                Helper.DisplayError("\nA book can belong to " + DOM + " domains. (DOM = " + DOM + " )");
+                Helper.DisplayError("\nA book can belong to " + DOM + " domains. (DOM = " + DOM + ")");
             }
         }
 

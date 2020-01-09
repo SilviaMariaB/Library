@@ -56,7 +56,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                log.Info("GetAuthorsForBook procedure has been called from AuthorDAL." );
+                log.Info("GetAuthorsForBook procedure has been called from AuthorDAL.");
                 return result;
             }
         }
@@ -83,7 +83,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                log.Info("GetIdForAuthor procedure has been called from AuthorDAL." );
+                log.Info("GetIdForAuthor procedure has been called from AuthorDAL.");
                 return counter == 0 ? false : true;
             }
         }

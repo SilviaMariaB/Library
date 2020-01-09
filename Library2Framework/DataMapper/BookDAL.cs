@@ -15,7 +15,8 @@ namespace Library2Framework.DataMapper
 
     public class BookDAL
     {
-         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(BookDAL));
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(BookDAL));
+
         public static bool CheckBook(string bookName)
         {
             using (SqlConnection con = DBConnection.Connection)
@@ -38,7 +39,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                log.Info("GetIdForBook procedure has been called from BookDAL." );
+                log.Info("GetIdForBook procedure has been called from BookDAL.");
                 return counter == 0 ? false : true;
             }
         }
@@ -75,7 +76,7 @@ namespace Library2Framework.DataMapper
                 }
 
                 reader.Close();
-                log.Info("GetDomainsForBook procedure has been called from BookDAL." );
+                log.Info("GetDomainsForBook procedure has been called from BookDAL.");
                 return result;
             }
         }
@@ -98,9 +99,9 @@ namespace Library2Framework.DataMapper
                 con.Open();
 
                 cmd.ExecuteNonQuery();
-
             }
-            log.Info("AddDomainForBook procedure has been called from BookDAL." );
+
+            log.Info("AddDomainForBook procedure has been called from BookDAL.");
         }
     }
 }

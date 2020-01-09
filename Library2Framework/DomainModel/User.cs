@@ -35,14 +35,14 @@ namespace Library2Framework.DomainModel
             this.LastName = LastName;
         }
 
-        public User(string FirstName, string LastName, string Address, string PhoneNumber, string Email, int ID = 0)
+        public User(string firstName, string lastName, string address, string phoneNumber, string email, int iD = 0)
         {
-            this.ID = ID;
-            this.FirstName = FirstName;
-            this.LastName = LastName;
-            this.Address = Address;
-            this.PhoneNumber = PhoneNumber;
-            this.Email = Email;
+            this.ID = iD;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Address = address;
+            this.PhoneNumber = phoneNumber;
+            this.Email = email;
         }
 
         public User()
